@@ -1,0 +1,17 @@
+<h1>I'm the petition page! :D</h1>
+<form method='POST'>
+    <div>
+        <p>Please Register:</p>
+    </div>
+    <div>{{#if missingInfo}}<p style="color: red;">Please fill in all the details</p>{{/if}}</div>
+    <div>
+    <input type="text" name="first" placeholder="First Name">
+    <input type="text" name="last" placeholder="Last Name">
+    <input type="hidden" name="signature">
+    <canvas id="canvas" width="300" height="100" style="border: 1px black dashed;"></canvas>
+    </div>
+    <button> submit </submit>
+</form>
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="../script.js"></script>
