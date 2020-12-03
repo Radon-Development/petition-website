@@ -1,17 +1,27 @@
-<h1>I'm the petition page! :D</h1>
-<form method='POST'>
-    <div>
-        <p>Please Register:</p>
-    </div>
-    <div>{{#if missingInfo}}<p style="color: red;">Please fill in all the details</p>{{/if}}</div>
-    <div>
-    <input type="text" name="first" placeholder="First Name">
-    <input type="text" name="last" placeholder="Last Name">
-    <input type="hidden" name="signature">
-    <canvas id="canvas" width="300" height="100" style="border: 1px black dashed;"></canvas>
-    </div>
-    <button> submit </submit>
+<div class="container">
+    <h1>Sign our petition to establish speedy checkouts in grocery shops as a national competitive sport🛒</h1>
+    <img src="../checkout.gif" alt="checkout">
+    <form method='POST'>
+        <div>{{#if missingInfo}}<p style="color: red;">Please fill in all the details</p>{{/if}}</div>
+        <div class="full-name">
+        <input type="text" name="first" placeholder="First Name">
+        <input type="text" name="last" placeholder="Last Name">
+        </div>
+        <div class="signature">
+        <input type="hidden" name="signature">
+        <p>Sign Here</p>
+        <canvas id="canvas" width="500" height="50" style="border: 1px black dashed;"></canvas>        
+        </div>
+        <button> submit </submit>
 </form>
+</div>
+ 
+ 
+
+<link rel="stylesheet" href="../petitionStyle.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Nerko+One&display=swap" rel="stylesheet"> 
+<link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap" rel="stylesheet"> 
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="../script.js"></script>

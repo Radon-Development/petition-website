@@ -1,0 +1,47 @@
+* {
+    border: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #fffedf;
+}
+
+.container {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+
+h1 {
+    text-align: center;
+    font-family: "Nerko One", cursive;
+}
+
+div {
+    text-align: center;
+}
+
+input {
+    border: black 1px solid;
+    width: 150px;
+    box-shadow: 0 0 8px #666;
+    behavior: url("PIE.htc");
+}
+
+.full-name {
+    margin: 40px;
+}
+
+button {
+    cursor: pointer;
+}
+
+p {
+    margin-bottom: 0px;
+    font-family: "Gochi Hand", cursive;
+    font-size: 25px;
+}
+
+canvas {
+    margin-bottom: 15px;
+}
