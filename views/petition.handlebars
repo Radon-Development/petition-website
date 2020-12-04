@@ -4,6 +4,7 @@
     <form method='POST'>
         <div>{{#if missingInfo}}<p style="color: red;">Please fill in all the details</p>{{/if}}</div>
         <div class="full-name">
+        <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <input type="text" name="first" placeholder="First Name">
         <input type="text" name="last" placeholder="Last Name">
         </div>

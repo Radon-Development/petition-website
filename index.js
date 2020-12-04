@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const hb = require("express-handlebars");
 const cookieSession = require("cookie-session");
+const csurf = require("csurf");
 const db = require("./db");
 
 app.engine("handlebars", hb());
@@ -20,7 +21,11 @@ app.use(
     })
 );
 
+app.use(csurf());
+
 app.use((req, res, next) => {
+    res.set("x-frame-options", "DENY");
+    res.locals.csrfToken = req.csrfToken();
     console.log("----------------------------");
     console.log(`${req.method} request coming in on route ${req.url}`);
     console.log("----------------------------");
@@ -34,7 +39,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/petition", (req, res) => {
-    if (req.session.registered == true) {
+    if (req.session.registered) {
         res.redirect("/thanks");
     } else {
         res.render("petition");
@@ -57,7 +62,7 @@ app.post("/petition", (req, res) => {
 });
 
 app.get("/thanks", (req, res) => {
-    if (req.session.registered != true) {
+    if (!req.session.registered) {
         res.redirect("/petition");
     } else {
         db.howManyRegistered()
@@ -75,7 +80,7 @@ app.get("/thanks", (req, res) => {
 });
 
 app.get("/signers", (req, res) => {
-    if (req.session.registered != true) {
+    if (!req.session.registered) {
         res.redirect("/petition");
     } else {
         db.allSigners()
