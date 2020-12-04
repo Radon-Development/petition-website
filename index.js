@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const hb = require("express-handlebars");
 const cookieParser = require("cookie-parser");
+// const cookieSession = require("cookie-session");
 const db = require("./db");
 
 app.engine("handlebars", hb());
@@ -15,6 +16,13 @@ app.use(
 
 app.use(cookieParser());
 
+// app.use(
+//     cookieSession({
+//         secret: `I'm always angry.`,
+//         maxAge: 1000 * 60 * 60 * 24 * 14,
+//     })
+// );
+
 app.use((req, res, next) => {
     console.log("----------------------------");
     console.log(`${req.method} request coming in on route ${req.url}`);
@@ -23,6 +31,12 @@ app.use((req, res, next) => {
 });
 
 app.use(express.static("./public"));
+
+app.get("/", (req, res) => {
+    // console.log(("req,session: ", req.session));
+    //req.session.cohot = "Jasmine";
+    res.redirect("/petition");
+});
 
 app.get("/petition", (req, res) => {
     if (req.cookies.registered == "true") {
@@ -33,8 +47,8 @@ app.get("/petition", (req, res) => {
 });
 
 app.post("/petition", (req, res) => {
-    const { first, last } = req.body;
-    db.addSignature(first, last)
+    const { first, last, signature } = req.body;
+    db.addSignature(first, last, signature)
         .then(() => {
             res.cookie("registered", true);
             res.redirect("/thanks");
@@ -73,6 +87,7 @@ app.get("/signers", (req, res) => {
     } else {
         db.allSigners()
             .then(({ rows }) => {
+                console.log(rows);
                 res.render("signers", { rows });
             })
             .catch((err) => {

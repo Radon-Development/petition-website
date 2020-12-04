@@ -18,9 +18,11 @@ const db = spicedPg("postgres:postgres:postgres@localhost:5432/petition");
 //     return db.query(q, params);
 // };
 
-module.exports.addSignature = (first, last) => {
-    const q = "INSERT INTO signatures (first,last) VALUES ($1, $2)";
-    const params = [first, last];
+module.exports.addSignature = (first, last, sig) => {
+    const q =
+        "INSERT INTO signatures (first,last,signature) VALUES ($1, $2, $3)";
+    // RETURNING id
+    const params = [first, last, sig];
     return db.query(q, params);
 };
 
@@ -29,5 +31,5 @@ module.exports.howManyRegistered = () => {
 };
 
 module.exports.allSigners = () => {
-    return db.query("SELECT (first,last) FROM signatures");
+    return db.query("SELECT first, last FROM signatures");
 };

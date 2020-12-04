@@ -1,46 +1,30 @@
-// const canvas = $("#canvas");
-// var ctx = canvas.getContext("2d");
+const canvas = $("#canvas");
+const sig = $("#sig");
+let dataURL;
+var ctx = canvas[0].getContext("2d");
 
-// signature.on("mousedown", (e) => {
-//     let startX = e.pageX;
-//     let startY = e.pageY;
+canvas.on("mousedown", (e) => {
+    let canvasXAxis = canvas.offset().left;
+    let canvasYAxis = canvas.offset().top;
+    let userX = e.pageX - canvasXAxis;
+    let userY = e.pageY - canvasYAxis;
 
-//     ctx.beginPath();
+    ctx.beginPath();
 
-//     ctx.moveTo(startX, startY);
+    ctx.moveTo(userX, userY);
 
-//     signature.on("mousemove", (moveE) => {
-//         ctx.lineTo(moveE.pageX, moveE.pageY);
-//     });
-// });
+    canvas.on("mousemove", (moveE) => {
+        userX = moveE.pageX - canvasXAxis;
+        userY = moveE.pageY - canvasYAxis;
+        ctx.lineTo(userX, userY);
+        ctx.stroke();
+        dataURL = document.querySelector("#canvas").toDataURL();
+        sig.val(dataURL);
+    });
+});
 
-// signature.on("mouseup", () => {
-//     console.log("mouseup!");
-//     ctx.stroke();
-// });
-
-const canvas = document.querySelector("#canvas");
-const ctx = canvas.getContext("2d");
-
-let painting = false;
-
-function startPosition() {
-    painting = true;
-}
-
-function finishedPosition() {
-    painting = false;
-}
-
-function draw(e) {
-    if (!painting) {
-        return;
-    }
-    ctx.lineWidth = "10";
-    ctx.lineTo(e.clientX, e.clientY);
-    ctx.stroke();
-}
-
-canvas.addEventListener("mousedown", startPosition);
-canvas.addEventListener("mouseup", finishedPosition);
-canvas.addEventListener("mousemove", draw);
+canvas.on("mouseup", () => {
+    canvas.unbind("mousemove");
+    dataURL = document.querySelector("#canvas").toDataURL();
+    sig.val(dataURL);
+});
