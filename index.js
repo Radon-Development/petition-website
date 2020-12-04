@@ -1,8 +1,7 @@
 const express = require("express");
 const app = express();
 const hb = require("express-handlebars");
-const cookieParser = require("cookie-parser");
-// const cookieSession = require("cookie-session");
+const cookieSession = require("cookie-session");
 const db = require("./db");
 
 app.engine("handlebars", hb());
@@ -14,14 +13,12 @@ app.use(
     })
 );
 
-app.use(cookieParser());
-
-// app.use(
-//     cookieSession({
-//         secret: `I'm always angry.`,
-//         maxAge: 1000 * 60 * 60 * 24 * 14,
-//     })
-// );
+app.use(
+    cookieSession({
+        secret: `I'm always angry.`,
+        maxAge: 1000 * 60 * 60 * 24 * 14,
+    })
+);
 
 app.use((req, res, next) => {
     console.log("----------------------------");
@@ -33,13 +30,11 @@ app.use((req, res, next) => {
 app.use(express.static("./public"));
 
 app.get("/", (req, res) => {
-    // console.log(("req,session: ", req.session));
-    //req.session.cohot = "Jasmine";
     res.redirect("/petition");
 });
 
 app.get("/petition", (req, res) => {
-    if (req.cookies.registered == "true") {
+    if (req.session.registered == true) {
         res.redirect("/thanks");
     } else {
         res.render("petition");
@@ -49,8 +44,9 @@ app.get("/petition", (req, res) => {
 app.post("/petition", (req, res) => {
     const { first, last, signature } = req.body;
     db.addSignature(first, last, signature)
-        .then(() => {
-            res.cookie("registered", true);
+        .then(({ rows }) => {
+            req.session.id = rows[0].id;
+            req.session.registered = true;
             res.redirect("/thanks");
         })
         .catch(() => {
@@ -61,13 +57,16 @@ app.post("/petition", (req, res) => {
 });
 
 app.get("/thanks", (req, res) => {
-    if (req.cookies.registered != "true") {
+    if (req.session.registered != true) {
         res.redirect("/petition");
     } else {
         db.howManyRegistered()
             .then(({ rows }) => {
                 const numOfRegistered = rows[0].count;
-                res.render("thanks", { numOfRegistered });
+                db.getSignature(req.session.id).then(({ rows }) => {
+                    const usersig = rows[0].signature;
+                    res.render("thanks", { numOfRegistered, usersig });
+                });
             })
             .catch((err) => {
                 console.error("error in db.howManyRegistered", err);
@@ -75,19 +74,12 @@ app.get("/thanks", (req, res) => {
     }
 });
 
-// GET /signers
-
-//     redirect users to /petition if there is no cookie (this means they haven't signed yet & should not see this page!)
-//     SELECT first and last values of every person that has signed from the database and pass them to signers.handlebars
-//     SELECT the number of people that have signed the petition from the db → I recommend looking into what COUNT can do for you here ;)
-
 app.get("/signers", (req, res) => {
-    if (req.cookies.registered != "true") {
+    if (req.session.registered != true) {
         res.redirect("/petition");
     } else {
         db.allSigners()
             .then(({ rows }) => {
-                console.log(rows);
                 res.render("signers", { rows });
             })
             .catch((err) => {

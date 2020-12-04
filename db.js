@@ -1,27 +1,9 @@
 const spicedPg = require("spiced-pg");
 const db = spicedPg("postgres:postgres:postgres@localhost:5432/petition");
 
-// module.exports.getActors = () => {
-//     return db.query("SELECT * FROM actors");
-// };
-
-// module.exports.addActor = (actorName, age) => {
-//     return db.query("INSERT INTO actors (name,age) VALUES ($1, $2)", [
-//         actorName,
-//         age,
-//     ]);
-// };
-
-// module.exports.getSpcificActor = (actorName) => {
-//     const q = "SELECT * FROM actors WHERE name = $1";
-//     const params = [actorName];
-//     return db.query(q, params);
-// };
-
 module.exports.addSignature = (first, last, sig) => {
     const q =
-        "INSERT INTO signatures (first,last,signature) VALUES ($1, $2, $3)";
-    // RETURNING id
+        "INSERT INTO signatures (first,last,signature) VALUES ($1, $2, $3) RETURNING id";
     const params = [first, last, sig];
     return db.query(q, params);
 };
@@ -32,4 +14,10 @@ module.exports.howManyRegistered = () => {
 
 module.exports.allSigners = () => {
     return db.query("SELECT first, last FROM signatures");
+};
+
+module.exports.getSignature = (id) => {
+    const q = "SELECT signature FROM signatures WHERE id = ($1)";
+    const params = [id];
+    return db.query(q, params);
 };
