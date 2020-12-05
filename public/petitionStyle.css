@@ -1,24 +1,18 @@
-* {
-    border: 0;
-    box-sizing: border-box;
-}
-
-body {
-    background-color: #fffedf;
-}
-
 .container {
-    margin-left: 20%;
-    margin-right: 20%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    height: 60%;
 }
 
-h1 {
-    text-align: center;
-    font-family: "Nerko One", cursive;
+.container-left {
+    grid-column: 1/2;
+    grid-row: 1/3;
 }
 
-div {
-    text-align: center;
+.container-right {
+    grid-column: 2/3;
+    grid-row: 1/2;
 }
 
 input {
@@ -28,20 +22,6 @@ input {
     behavior: url("PIE.htc");
 }
 
-.full-name {
-    margin: 40px;
-}
-
 button {
     cursor: pointer;
-}
-
-p {
-    margin-bottom: 0px;
-    font-family: "Gochi Hand", cursive;
-    font-size: 25px;
-}
-
-canvas {
-    margin-bottom: 15px;
 }
