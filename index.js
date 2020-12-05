@@ -26,9 +26,9 @@ app.use(csurf());
 app.use((req, res, next) => {
     res.set("x-frame-options", "DENY");
     res.locals.csrfToken = req.csrfToken();
-    console.log("----------------------------");
-    console.log(`${req.method} request coming in on route ${req.url}`);
-    console.log("----------------------------");
+    // console.log("----------------------------");
+    // console.log(`${req.method} request coming in on route ${req.url}`);
+    // console.log("----------------------------");
     next();
 });
 
@@ -54,9 +54,25 @@ app.post("/petition", (req, res) => {
             req.session.registered = true;
             res.redirect("/thanks");
         })
-        .catch(() => {
+        .catch(({ detail }) => {
+            let errStr = detail.substr(22, detail.length - 3 - 22);
+            let arr = errStr.split(",");
+            let missingFirst = false;
+            let missingLast = false;
+            let missingSig = false;
+            if (arr[1] == " ") {
+                missingFirst = true;
+            }
+            if (arr[2] == " ") {
+                missingLast = true;
+            }
+            if (arr[3] == "") {
+                missingSig = true;
+            }
             res.render("petition", {
-                missingInfo: true,
+                missingFirst,
+                missingLast,
+                missingSig,
             });
         });
 });

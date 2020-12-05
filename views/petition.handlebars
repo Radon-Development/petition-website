@@ -2,7 +2,11 @@
     <h1>Sign our petition to establish speedy checkouts in grocery shops as a national competitive sport🛒</h1>
     <img src="../checkout.gif" alt="checkout">
     <form method='POST'>
-        <div>{{#if missingInfo}}<p style="color: red;">Please fill in all the details</p>{{/if}}</div>
+        <div>
+            {{#if missingFirst}}<p style="color: red;">Please fill in your first name</p>{{/if}}
+            {{#if missingLast}}<p style="color: red;">Please fill in your last name</p>{{/if}}
+            {{#if missingSig}}<p style="color: red;">Please fill in your signature</p>{{/if}}
+        </div>
         <div class="full-name">
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <input type="text" name="first" placeholder="First Name">
