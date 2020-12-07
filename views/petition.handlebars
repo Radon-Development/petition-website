@@ -6,9 +6,7 @@
     <div class="container-left">
     <form method='POST'>
         <div>
-            {{#if missingFirst}}<p style="color: red;">Please fill in your first name</p>{{/if}}
-            {{#if missingLast}}<p style="color: red;">Please fill in your last name</p>{{/if}}
-            {{#if missingSig}}<p style="color: red;">Please fill in your signature</p>{{/if}}
+            {{#if issue}}<p style="color: red;">Please fill in your signature</p>{{/if}}
         </div>
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
         <div class="signature">

@@ -40,14 +40,14 @@ app.get("/", (req, res) => {
 });
 
 app.get("/petition", (req, res) => {
-    if (req.session.sigId) {
-        res.redirect("/thanks");
-    } else {
-        if (req.session.logged) {
-            res.render("petition");
+    if (req.session.userId) {
+        if (req.session.sigId) {
+            res.redirect("/thanks");
         } else {
-            res.redirect("/login");
+            res.render("petition");
         }
+    } else {
+        res.redirect("/login");
     }
 });
 
@@ -58,78 +58,69 @@ app.post("/petition", (req, res) => {
             req.session.sigId = rows[0].id;
             res.redirect("/thanks");
         })
-        .catch(({ detail }) => {
-            let errStr = detail.substr(22, detail.length - 3 - 22);
-            let arr = errStr.split(",");
-            let missingFirst = false;
-            let missingLast = false;
-            let missingSig = false;
-            if (arr[1] == " ") {
-                missingFirst = true;
-            }
-            if (arr[2] == " ") {
-                missingLast = true;
-            }
-            if (arr[3] == "") {
-                missingSig = true;
-            }
+        .catch(() => {
+            console.error("error in db.addSignature", err);
+            const issue = true;
             res.render("petition", {
-                missingFirst,
-                missingLast,
-                missingSig,
+                issue,
             });
         });
 });
 
 app.get("/thanks", (req, res) => {
-    if (!req.session.sigId) {
-        if (req.session.logged) {
-            res.redirect("/petition");
+    if (req.session.userId) {
+        if (req.session.sigId) {
+            db.howManyRegistered()
+                .then(({ rows }) => {
+                    const numOfRegistered = rows[0].count;
+                    db.getSignature(req.session.sigId)
+                        .then(({ rows }) => {
+                            const usersig = rows[0].signature;
+                            res.render("thanks", { numOfRegistered, usersig });
+                        })
+                        .catch((err) => {
+                            console.error("error in db.getSignature", err);
+                        });
+                })
+                .catch((err) => {
+                    console.error("error in db.howManyRegistered", err);
+                });
         } else {
-            res.redirect("/login");
+            res.redirect("/petition");
         }
     } else {
-        db.howManyRegistered()
-            .then(({ rows }) => {
-                const numOfRegistered = rows[0].count;
-                db.getSignature(req.session.sigId)
-                    .then(({ rows }) => {
-                        const usersig = rows[0].signature;
-                        res.render("thanks", { numOfRegistered, usersig });
-                    })
-                    .catch((err) => {
-                        console.error("error in db.getSignature", err);
-                    });
-            })
-            .catch((err) => {
-                console.error("error in db.howManyRegistered", err);
-            });
+        res.redirect("/login");
     }
 });
 
 app.get("/signers", (req, res) => {
-    if (!req.session.sigId) {
-        if (req.session.logged) {
-            res.redirect("/petition");
+    if (req.session.userId) {
+        if (req.session.sigId) {
+            db.allSigners()
+                .then(({ rows }) => {
+                    res.render("signers", { rows });
+                })
+                .catch((err) => {
+                    console.error("error in db.allSigners", err);
+                });
         } else {
-            res.redirect("/login");
+            res.redirect("/petition");
         }
     } else {
-        db.allSigners()
-            .then(({ rows }) => {
-                res.render("signers", { rows });
-            })
-            .catch((err) => {
-                console.error("error in db.allSigners", err);
-            });
+        res.redirect("/login");
     }
 });
 
 app.get("/register", (req, res) => {
-    if (!req.session.sigId && req.session.logged) {
-        res.redirect("/petition");
+    if (req.session.userId) {
+        if (req.session.sigId) {
+            res.redirect("/thanks");
+        } else {
+            res.redirect("/petition");
+        }
+    } else {
+        res.render("register");
     }
-    res.render("register");
 });
 
 app.post("/register", (req, res) => {
@@ -137,8 +128,8 @@ app.post("/register", (req, res) => {
     hash(pw)
         .then((hashedPw) => {
             db.addNewUser(first, last, email, hashedPw)
-                .then((userId) => {
-                    req.session.userId = userId;
+                .then(({ rows }) => {
+                    req.session.userId = rows[0].id;
                     res.redirect("/login");
                 })
                 .catch((err) => {
@@ -153,10 +144,15 @@ app.post("/register", (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-    if (!req.session.sigId && req.session.logged) {
-        res.redirect("/petition");
+    if (req.session.userId) {
+        if (req.session.sigId) {
+            res.redirect("/thanks");
+        } else {
+            res.redirect("/petition");
+        }
+    } else {
+        res.render("login");
     }
-    res.render("login");
 });
 
 app.post("/login", (req, res) => {
@@ -167,7 +163,6 @@ app.post("/login", (req, res) => {
             compare(typedPw, hashedPw)
                 .then((result) => {
                     if (result) {
-                        req.session.logged = true;
                         req.session.userId = userId;
                         db.didUserSign(userId)
                             .then((sigId) => {
