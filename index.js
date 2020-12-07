@@ -125,6 +125,9 @@ app.get("/register", (req, res) => {
 
 app.post("/register", (req, res) => {
     const { first, last, email, pw } = req.body;
+    //  localStorage.setItem("first", first);
+    //  localStorage.setItem("last", last);
+    //  localStorage.setItem("email", email);
     hash(pw)
         .then((hashedPw) => {
             db.addNewUser(first, last, email, hashedPw)
@@ -133,9 +136,33 @@ app.post("/register", (req, res) => {
                     res.redirect("/login");
                 })
                 .catch((err) => {
-                    console.error("error in db.addNewUser", err);
-                    const issue = true;
-                    res.render("register", { issue });
+                    console.error("error in db.addNewUser: ", err);
+                    let missingFirst = false;
+                    let missingLast = false;
+                    let missingEmail = false;
+                    let missingPw = false;
+                    // const firstI = document.getElementById("firstI");
+                    // const lastI = document.getElementById("lastI");
+                    // const emailI = document.getElementById("emailI");
+                    // console.log(firstI, lastI, emailI);
+                    if (first == "") {
+                        missingFirst = true;
+                    }
+                    if (last == "") {
+                        missingLast = true;
+                    }
+                    if (email == "") {
+                        missingEmail = true;
+                    }
+                    if (pw == "") {
+                        missingPw = true;
+                    }
+                    res.render("register", {
+                        missingFirst,
+                        missingLast,
+                        missingEmail,
+                        missingPw,
+                    });
                 });
         })
         .catch((err) => {

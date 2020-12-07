@@ -1,0 +1,73 @@
+.form {
+    display: grid;
+    grid-template-columns: 2% 19% 79%;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+
+#first {
+    grid-column: 2/3;
+    grid-row: 1/2;
+}
+
+#firstI {
+    grid-column: 3/4;
+    grid-row: 1/2;
+    justify-self: start;
+    align-self: center;
+}
+
+#last {
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+
+#lastI {
+    grid-column: 3/4;
+    grid-row: 2/3;
+    justify-self: start;
+    align-self: center;
+}
+
+#email {
+    grid-column: 2/3;
+    grid-row: 3/4;
+}
+
+#emailI {
+    grid-column: 3/4;
+    grid-row: 3/4;
+    justify-self: start;
+    align-self: center;
+}
+
+#pw {
+    grid-column: 2/3;
+    grid-row: 4/5;
+}
+
+#pwI {
+    grid-column: 3/4;
+    grid-row: 4/5;
+    justify-self: start;
+    align-self: center;
+}
+
+#firstS {
+    grid-column: 1/2;
+    grid-row: 1/2;
+}
+
+#lastS {
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+#emailS {
+    grid-column: 1/2;
+    grid-row: 3/4;
+}
+
+#pwS {
+    grid-column: 1/2;
+    grid-row: 4/5;
+}

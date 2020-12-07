@@ -6,17 +6,23 @@
 
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
-    {{#if issue}}<p style="color: red;">Something went wrong, please try again</p>{{/if}}
-
-    <p>First Name</p>
-        <input type="text" name="first">
-    <p>Last Name</p>
-        <input type="text" name="last">
-    <p>Email Address</p>
-        <input type="text" name="email">
-    <p>Password</p>
-        <input type="password" name="pw">
+    <div class="form">
+        {{#if missingFirst}}<p id="firstS" style="color: red;">*</p>{{/if}}
+        <p id="first">First Name</p>
+        <input id="firstI" type="text" name="first">
+        {{#if missingLast}}<p id="lastS" style="color: red;">*</p>{{/if}}
+        <p id="last">Last Name</p>
+        <input id="lastI" type="text" name="last">
+        {{#if missingEmail}}<p id="emailS" style="color: red;">*</p>{{/if}}
+        <p id="email">Email Address</p>
+        <input id="emailI" type="text" name="email">
+        {{#if missingPw}}<p id="pwS" style="color: red;">*</p>{{/if}}
+        <p id="pw">Password</p>
+        <input id="pwI" type="password" name="pw">
+    </div>
 
     <button> submit </submit>
 
 </form>
+
+<link rel="stylesheet" href="../registerStyle.css">
