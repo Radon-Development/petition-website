@@ -1,0 +1,22 @@
+<h1>Registration page</h1>
+
+<p>if you have an account already, please sign in <a href="/login">here</a></p>
+
+<form method='POST'>
+
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+    {{#if issue}}<p style="color: red;">Something went wrong, please try again</p>{{/if}}
+
+    <p>First Name</p>
+        <input type="text" name="first">
+    <p>Last Name</p>
+        <input type="text" name="last">
+    <p>Email Address</p>
+        <input type="text" name="email">
+    <p>Password</p>
+        <input type="text" name="pw">
+
+    <button> submit </submit>
+
+</form>

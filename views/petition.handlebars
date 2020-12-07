@@ -10,23 +10,17 @@
             {{#if missingLast}}<p style="color: red;">Please fill in your last name</p>{{/if}}
             {{#if missingSig}}<p style="color: red;">Please fill in your signature</p>{{/if}}
         </div>
-        <div class="full-name">
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
-        <p>First Name</p>
-        <input type="text" name="first">
-        <p>Last Name</p>
-        <input type="text" name="last">
-        </div>
         <div class="signature">
-        <input id= "sig" type="hidden" name="signature">
-        <p>Sign Here</p>
-        <canvas id="canvas" width="300" height="50" style="border: 1px black dashed;"></canvas>        
+            <input id= "sig" type="hidden" name="signature">
+            <p>Sign Here</p>
+            <canvas id="canvas" width="300" height="50" style="border: 1px black dashed;"></canvas>        
         </div>
         <button> submit </submit>
     </form>
 </div>
 </div>
-<img src="../checkout.gif" alt="checkout">
+{{!-- <img src="../checkout.gif" alt="checkout"> --}}
  
 
 <link rel="stylesheet" href="../petitionStyle.css">
