@@ -1,0 +1,19 @@
+<h1>Profile page</h1>
+
+<form method='POST'>
+
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+    <div class="form">
+        <p>Age</p>
+        <input type="text" name="age">
+        <p>City</p>
+        <input type="text" name="city">
+        {{#if urlIssue}}<p style="color: red;">Please make sure that you entered a valid URL</p>{{/if}}
+        <p>Homepage</p>
+        <input type="text" name="url">
+    </div>
+
+    <button> submit </submit>
+
+</form>

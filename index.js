@@ -125,49 +125,68 @@ app.get("/register", (req, res) => {
 
 app.post("/register", (req, res) => {
     const { first, last, email, pw } = req.body;
+    let missingPw = false;
+    let missingFirst = false;
+    let missingLast = false;
+    let missingEmail = false;
     //  localStorage.setItem("first", first);
     //  localStorage.setItem("last", last);
     //  localStorage.setItem("email", email);
-    hash(pw)
-        .then((hashedPw) => {
-            db.addNewUser(first, last, email, hashedPw)
-                .then(({ rows }) => {
-                    req.session.userId = rows[0].id;
-                    res.redirect("/login");
-                })
-                .catch((err) => {
-                    console.error("error in db.addNewUser: ", err);
-                    let missingFirst = false;
-                    let missingLast = false;
-                    let missingEmail = false;
-                    let missingPw = false;
-                    // const firstI = document.getElementById("firstI");
-                    // const lastI = document.getElementById("lastI");
-                    // const emailI = document.getElementById("emailI");
-                    // console.log(firstI, lastI, emailI);
-                    if (first == "") {
-                        missingFirst = true;
-                    }
-                    if (last == "") {
-                        missingLast = true;
-                    }
-                    if (email == "") {
-                        missingEmail = true;
-                    }
-                    if (pw == "") {
-                        missingPw = true;
-                    }
-                    res.render("register", {
-                        missingFirst,
-                        missingLast,
-                        missingEmail,
-                        missingPw,
-                    });
-                });
-        })
-        .catch((err) => {
-            console.error("error in hash: ", err);
+    if (!pw) {
+        missingPw = true;
+        if (!first) {
+            missingFirst = true;
+        }
+        if (!last) {
+            missingLast = true;
+        }
+        if (!email) {
+            missingEmail = true;
+        }
+        res.render("register", {
+            missingFirst,
+            missingLast,
+            missingEmail,
+            missingPw,
         });
+    } else {
+        hash(pw)
+            .then((hashedPw) => {
+                db.addNewUser(first, last, email, hashedPw)
+                    .then(({ rows }) => {
+                        req.session.userId = rows[0].id;
+                        res.redirect("/profile");
+                    })
+                    .catch((err) => {
+                        console.error("error in db.addNewUser: ", err);
+                        // const firstI = document.getElementById("firstI");
+                        // const lastI = document.getElementById("lastI");
+                        // const emailI = document.getElementById("emailI");
+                        // console.log(firstI, lastI, emailI);
+                        if (!first) {
+                            missingFirst = true;
+                        }
+                        if (!last) {
+                            missingLast = true;
+                        }
+                        if (!email) {
+                            missingEmail = true;
+                        }
+                        if (!pw) {
+                            missingPw = true;
+                        }
+                        res.render("register", {
+                            missingFirst,
+                            missingLast,
+                            missingEmail,
+                            missingPw,
+                        });
+                    });
+            })
+            .catch((err) => {
+                console.error("error in hash: ", err);
+            });
+    }
 });
 
 app.get("/login", (req, res) => {
@@ -215,6 +234,52 @@ app.post("/login", (req, res) => {
         .catch((err) => {
             "error in db.getHashedPwandUserId", err;
         });
+});
+
+app.get("/profile", (req, res) => {
+    if (req.session.userId) {
+        res.render("profile");
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.post("/profile", (req, res) => {
+    let { age, city, url } = req.body;
+    if (!age) {
+        age = null;
+    }
+    if (!url || url.indexOf("http://") === 0 || url.indexOf("https://") === 0) {
+        db.insertProfile(age, city, url, req.session.userId)
+            .then(() => {
+                res.redirect("/thanks");
+            })
+            .catch((err) => {
+                console.error("error in db.insertProfile: ", err);
+            });
+    } else {
+        const urlIssue = true;
+        res.render("profile", { urlIssue });
+    }
+});
+
+app.get("/signers/:city", (req, res) => {
+    const { city } = req.params;
+    if (req.session.userId) {
+        if (req.session.sigId) {
+            db.getSignersByCity(city)
+                .then(({ rows }) => {
+                    res.render("signers", { rows });
+                })
+                .catch((err) => {
+                    console.error("error in db.getSignersByCity: ", err);
+                });
+        } else {
+            res.redirect("/petition");
+        }
+    } else {
+        res.redirect("/login");
+    }
 });
 
 app.get("*", (req, res) => {

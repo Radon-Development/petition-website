@@ -13,7 +13,14 @@ module.exports.howManyRegistered = () => {
 };
 
 module.exports.allSigners = () => {
-    return db.query("SELECT first, last FROM users");
+    const q =
+        "SELECT users.first, users.last, user_profiles.age, user_profiles.city, user_profiles.url " +
+        "FROM users " +
+        "LEFT JOIN user_profiles " +
+        "ON users.id = user_profiles.user_id " +
+        "INNER JOIN signatures " +
+        "ON user_profiles.user_id = signatures.user_id";
+    return db.query(q);
 };
 
 module.exports.getSignature = (id) => {
@@ -38,5 +45,25 @@ module.exports.getHashedPwandUserId = (email) => {
 module.exports.didUserSign = (userId) => {
     const q = "SELECT id FROM signatures WHERE user_id = ($1)";
     const params = [userId];
+    return db.query(q, params);
+};
+
+module.exports.insertProfile = (age, city, url, user_id) => {
+    const q =
+        "INSERT INTO user_profiles (age, city, url, user_id) values ($1, LOWER($2), $3, $4)";
+    const params = [age, city, url, user_id];
+    return db.query(q, params);
+};
+
+module.exports.getSignersByCity = (city) => {
+    const q =
+        "SELECT users.first, users.last, user_profiles.age, user_profiles.url " +
+        "FROM users " +
+        "LEFT JOIN user_profiles " +
+        "ON users.id = user_profiles.user_id " +
+        "INNER JOIN signatures " +
+        "ON user_profiles.user_id = signatures.user_id " +
+        "WHERE city = LOWER($1)";
+    const params = [city];
     return db.query(q, params);
 };

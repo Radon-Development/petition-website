@@ -1,7 +1,7 @@
-<h1>I'm the signers page! :D</h1>
+<h1>Signers page</h1>
 <p>Here are all the people who signed:</p>
 <ul>
     {{#rows}}
-    <li>{{this.first}} {{this.last}}</li>
+    <li>{{#if this.url}}<a href="{{this.url}}">{{this.first}} {{this.last}}</a>{{else}}{{this.first}} {{this.last}}{{/if}} {{this.age}} <a href="/signers/{{this.city}}">{{this.city}}</a></li>
     {{/rows}}
 </ul>
