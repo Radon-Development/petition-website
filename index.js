@@ -137,9 +137,6 @@ app.post("/register", (req, res) => {
     let missingFirst = false;
     let missingLast = false;
     let missingEmail = false;
-    //  localStorage.setItem("first", first);
-    //  localStorage.setItem("last", last);
-    //  localStorage.setItem("email", email);
     if (!pw) {
         missingPw = true;
         if (!first) {
@@ -167,10 +164,6 @@ app.post("/register", (req, res) => {
                     })
                     .catch((err) => {
                         console.error("error in db.addNewUser: ", err);
-                        // const firstI = document.getElementById("firstI");
-                        // const lastI = document.getElementById("lastI");
-                        // const emailI = document.getElementById("emailI");
-                        // console.log(firstI, lastI, emailI);
                         if (!first) {
                             missingFirst = true;
                         }
@@ -254,9 +247,6 @@ app.get("/profile", (req, res) => {
 
 app.post("/profile", (req, res) => {
     let { age, city, url } = req.body;
-    if (!age) {
-        age = null;
-    }
     if (!url || url.indexOf("http://") === 0 || url.indexOf("https://") === 0) {
         db.insertProfile(age, city, url, req.session.userId)
             .then(() => {

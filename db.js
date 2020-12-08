@@ -51,7 +51,7 @@ module.exports.didUserSign = (userId) => {
 module.exports.insertProfile = (age, city, url, user_id) => {
     const q =
         "INSERT INTO user_profiles (age, city, url, user_id) values ($1, LOWER($2), $3, $4)";
-    const params = [age, city, url, user_id];
+    const params = [age || null, city || null, url || null, user_id];
     return db.query(q, params);
 };
 
