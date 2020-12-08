@@ -98,6 +98,14 @@ app.get("/signers", (req, res) => {
         if (req.session.sigId) {
             db.allSigners()
                 .then(({ rows }) => {
+                    for (let i = 0; i < rows.length; i++) {
+                        const lowerCity = rows[i].city;
+                        let upperCity = lowerCity[0].toUpperCase();
+                        for (let j = 1; j < lowerCity.length; j++) {
+                            upperCity += lowerCity[j];
+                        }
+                        rows[i].upperCity = upperCity;
+                    }
                     res.render("signers", { rows });
                 })
                 .catch((err) => {
