@@ -114,11 +114,13 @@ app.get("/signers", (req, res) => {
                 .then(({ rows }) => {
                     for (let i = 0; i < rows.length; i++) {
                         const lowerCity = rows[i].city;
-                        let upperCity = lowerCity[0].toUpperCase();
-                        for (let j = 1; j < lowerCity.length; j++) {
-                            upperCity += lowerCity[j];
+                        if (lowerCity) {
+                            let upperCity = lowerCity[0].toUpperCase();
+                            for (let j = 1; j < lowerCity.length; j++) {
+                                upperCity += lowerCity[j];
+                            }
+                            rows[i].upperCity = upperCity;
                         }
-                        rows[i].upperCity = upperCity;
                     }
                     res.render("signers", { rows });
                 })
@@ -309,7 +311,12 @@ app.get("/profile/edit", (req, res) => {
 });
 
 app.post("/profile/edit", (req, res) => {
-    const { first, last, email, typedPw, age, city, url } = req.body;
+    const { first, last, email, typedPw, age, city, url, deleteAcc } = req.body;
+    if (typeof deleteAcc === "string") {
+        db.deleteAcc(req.session.userId);
+        req.session = null;
+        res.redirect("/login");
+    }
     if (typedPw) {
         hash(typedPw)
             .then((hashedPw) => {
@@ -342,7 +349,8 @@ app.post("/profile/edit", (req, res) => {
             .catch((err) => {
                 console.error("error in hash: ", err);
             });
-    } else {
+    }
+    if (typeof deleteAcc != "string" && !typedPw) {
         db.updateUserInfoWithoutPw(first, last, email, req.session.userId)
             .then(() => {
                 db.updateUserProfile(age, city, url, req.session.userId)

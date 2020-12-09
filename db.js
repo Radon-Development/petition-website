@@ -111,3 +111,48 @@ module.exports.deleteSig = (userId) => {
     const params = [userId];
     return db.query(q, params);
 };
+
+deleteUserFromUsers = (userId) => {
+    const q = "DELETE FROM users WHERE id = ($1)";
+    const params = [userId];
+    return db.query(q, params);
+};
+
+deleteUserFromSignatures = (userId) => {
+    const q = "DELETE FROM signatures WHERE user_id = ($1)";
+    const params = [userId];
+    return db.query(q, params);
+};
+
+deleteUserFromUserProfiles = (userId) => {
+    const q = "DELETE FROM user_profiles WHERE user_id = ($1)";
+    const params = [userId];
+    return db.query(q, params);
+};
+
+module.exports.deleteAcc = (userId) => {
+    deleteUserFromUsers(userId)
+        .then(() => {
+            deleteUserFromSignatures(userId)
+                .then(() => {
+                    deleteUserFromUserProfiles(userId)
+                        .then(() => {
+                            console.log(
+                                `user with id ${userId} deleted his account`
+                            );
+                        })
+                        .catch((err) => {
+                            console.error(
+                                "error in db.deleteUserFromUserProfiles",
+                                err
+                            );
+                        });
+                })
+                .catch((err) => {
+                    console.error("error in db.deleteUserFromSignatures", err);
+                });
+        })
+        .catch((err) => {
+            console.error("error in db.deleteUserFromUsers", err);
+        });
+};
