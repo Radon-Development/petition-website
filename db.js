@@ -157,7 +157,7 @@ module.exports.deleteAcc = (userId) => {
         });
 };
 
-module.exports.isEmailFree = (email) => {
+module.exports.doesEmailExists = (email) => {
     const q = "SELECT * FROM users WHERE email = ($1)";
     const params = [email];
     return db.query(q, params);

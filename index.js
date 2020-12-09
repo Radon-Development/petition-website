@@ -149,7 +149,7 @@ app.get("/register", (req, res) => {
 
 app.post("/register", (req, res) => {
     const { first, last, email, pw } = req.body;
-    db.isEmailFree(email)
+    db.doesEmailExists(email)
         .then(({ rows }) => {
             if (rows.length > 0) {
                 const emailExists = true;
@@ -216,7 +216,7 @@ app.post("/register", (req, res) => {
             }
         })
         .catch((err) => {
-            console.error("error in db.isEmailFree: ", err);
+            console.error("error in db.doesEmailExists: ", err);
         });
 });
 
@@ -234,36 +234,51 @@ app.get("/login", (req, res) => {
 
 app.post("/login", (req, res) => {
     const { email, typedPw } = req.body;
-    db.getHashedPwandUserId(email)
+    db.doesEmailExists(email)
         .then(({ rows }) => {
-            const { password: hashedPw, id: userId } = rows[0];
-            compare(typedPw, hashedPw)
-                .then((result) => {
-                    if (result) {
-                        req.session.userId = userId;
-                        db.didUserSign(userId)
-                            .then((sigId) => {
-                                if (sigId.rows[0]) {
-                                    req.session.sigId = sigId.rows[0].id;
-                                    res.redirect("/thanks");
+            if (rows.length <= 0) {
+                const emailNotExists = true;
+                res.render("login", { emailNotExists });
+            } else {
+                db.getHashedPwandUserId(email)
+                    .then(({ rows }) => {
+                        const { password: hashedPw, id: userId } = rows[0];
+                        compare(typedPw, hashedPw)
+                            .then((result) => {
+                                if (result) {
+                                    req.session.userId = userId;
+                                    db.didUserSign(userId)
+                                        .then((sigId) => {
+                                            if (sigId.rows[0]) {
+                                                req.session.sigId =
+                                                    sigId.rows[0].id;
+                                                res.redirect("/thanks");
+                                            } else {
+                                                res.redirect("/petition");
+                                            }
+                                        })
+                                        .catch((err) => {
+                                            console.error(
+                                                "error in db.didUserSign: ",
+                                                err
+                                            );
+                                        });
                                 } else {
-                                    res.redirect("/petition");
+                                    const issue = true;
+                                    res.render("login", { issue });
                                 }
                             })
                             .catch((err) => {
-                                console.error("error in db.didUserSign: ", err);
+                                console.error("error in compare: ", err);
                             });
-                    } else {
-                        const issue = true;
-                        res.render("login", { issue });
-                    }
-                })
-                .catch((err) => {
-                    console.error("error in compare: ", err);
-                });
+                    })
+                    .catch((err) => {
+                        "error in db.getHashedPwandUserId", err;
+                    });
+            }
         })
         .catch((err) => {
-            "error in db.getHashedPwandUserId", err;
+            console.error("error in db.doesEmailExists: ", err);
         });
 });
 
