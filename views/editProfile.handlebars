@@ -1,0 +1,26 @@
+<h1>Edit profile page</h1>
+
+<form method='POST'>
+
+    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+
+    {{#rows}}
+    <p>First Name</p>
+        <input type="text" name="first" value={{this.first}}>
+    <p>Last Name</p>
+        <input type="text" name="last" value={{this.last}}>
+    <p>Email</p>
+        <input type="text" name="email" value={{this.email}}>
+    <p>Password</p>
+        <input type="password" name="typedPw">
+    <p>Age</p>
+        <input type="text" name="age" value={{this.age}}>
+    <p>City</p>
+        <input type="text" name="city" value={{this.city}}>
+    <p>Homepage</p>
+        <input type="text" name="url" value={{this.url}}>
+    {{/rows}}
+
+    <button> update </submit>
+
+</form>

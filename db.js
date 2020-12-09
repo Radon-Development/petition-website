@@ -1,5 +1,8 @@
 const spicedPg = require("spiced-pg");
-const db = spicedPg("postgres:postgres:postgres@localhost:5432/petition");
+const db = spicedPg(
+    process.env.DATABASE_URL ||
+        "postgres:postgres:postgres@localhost:5432/petition"
+);
 
 module.exports.addSignature = (sig, userId) => {
     const q =
@@ -48,10 +51,10 @@ module.exports.didUserSign = (userId) => {
     return db.query(q, params);
 };
 
-module.exports.insertProfile = (age, city, url, user_id) => {
+module.exports.insertProfile = (age, city, url, userId) => {
     const q =
         "INSERT INTO user_profiles (age, city, url, user_id) values ($1, LOWER($2), $3, $4)";
-    const params = [age || null, city || null, url || null, user_id];
+    const params = [age || null, city || null, url || null, userId];
     return db.query(q, params);
 };
 
@@ -63,7 +66,48 @@ module.exports.getSignersByCity = (city) => {
         "ON users.id = user_profiles.user_id " +
         "INNER JOIN signatures " +
         "ON user_profiles.user_id = signatures.user_id " +
-        "WHERE city = LOWER($1)";
+        "WHERE user_profiles.city = LOWER($1)";
     const params = [city];
+    return db.query(q, params);
+};
+
+module.exports.getProfileInfo = (userId) => {
+    const q =
+        "SELECT users.first, users.last, users.email, user_profiles.age, user_profiles.city, user_profiles.url " +
+        "FROM users " +
+        "JOIN user_profiles " +
+        "ON users.id = user_profiles.user_id " +
+        "WHERE users.id = ($1)";
+    const params = [userId];
+    return db.query(q, params);
+};
+
+module.exports.updateUserInfoWithPw = (first, last, email, pw, userId) => {
+    const q =
+        "UPDATE users SET first = ($1), last = ($2), email = ($3), password = ($4) WHERE id = ($5)";
+    const params = [first, last, email, pw, userId];
+    return db.query(q, params);
+};
+
+module.exports.updateUserInfoWithoutPw = (first, last, email, userId) => {
+    const q =
+        "UPDATE users SET first = ($1), last = ($2), email = ($3) WHERE id = ($4)";
+    const params = [first, last, email, userId];
+    return db.query(q, params);
+};
+
+module.exports.updateUserProfile = (age, city, url, userId) => {
+    const q =
+        "INSERT INTO user_profiles (age, city, url, user_id) " +
+        "VALUES ($1, $2, $3, $4) " +
+        "ON CONFLICT (user_id) " +
+        "DO UPDATE SET age = ($1), city = ($2), url = ($3), user_id = ($4)";
+    const params = [age || null, city || null, url || null, userId];
+    return db.query(q, params);
+};
+
+module.exports.deleteSig = (userId) => {
+    const q = "DELETE FROM signatures WHERE user_id = ($1)";
+    const params = [userId];
     return db.query(q, params);
 };

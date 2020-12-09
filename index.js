@@ -93,6 +93,20 @@ app.get("/thanks", (req, res) => {
     }
 });
 
+app.post("/thanks", (req, res) => {
+    const { deleteSig } = req.body;
+    if (typeof deleteSig === "string") {
+        db.deleteSig(req.session.userId)
+            .then(() => {
+                req.session.sigId = null;
+                res.redirect("/petition");
+            })
+            .catch((err) => {
+                console.error("error in db.deleteSig", err);
+            });
+    }
+});
+
 app.get("/signers", (req, res) => {
     if (req.session.userId) {
         if (req.session.sigId) {
@@ -280,8 +294,75 @@ app.get("/signers/:city", (req, res) => {
     }
 });
 
+app.get("/profile/edit", (req, res) => {
+    if (req.session.userId) {
+        db.getProfileInfo(req.session.userId)
+            .then(({ rows }) => {
+                res.render("editProfile", { rows });
+            })
+            .catch((err) => {
+                console.error("error in db.getProfileInfo: ", err);
+            });
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.post("/profile/edit", (req, res) => {
+    const { first, last, email, typedPw, age, city, url } = req.body;
+    if (typedPw) {
+        hash(typedPw)
+            .then((hashedPw) => {
+                db.updateUserInfoWithPw(
+                    first,
+                    last,
+                    email,
+                    hashedPw,
+                    req.session.userId
+                )
+                    .then(() => {
+                        db.updateUserProfile(age, city, url, req.session.userId)
+                            .then(() => {
+                                res.redirect("/thanks");
+                            })
+                            .catch((err) => {
+                                console.error(
+                                    "error in db.updateUserProfile: ",
+                                    err
+                                );
+                            });
+                    })
+                    .catch((err) => {
+                        console.error(
+                            "error in db.updateUserInfoWithPw: ",
+                            err
+                        );
+                    });
+            })
+            .catch((err) => {
+                console.error("error in hash: ", err);
+            });
+    } else {
+        db.updateUserInfoWithoutPw(first, last, email, req.session.userId)
+            .then(() => {
+                db.updateUserProfile(age, city, url, req.session.userId)
+                    .then(() => {
+                        res.redirect("/thanks");
+                    })
+                    .catch((err) => {
+                        console.error("error in db.updateUserProfile: ", err);
+                    });
+            })
+            .catch((err) => {
+                console.error("error in db.updateUserInfoWithoutPw: ", err);
+            });
+    }
+});
+
 app.get("*", (req, res) => {
     res.redirect("/login");
 });
 
-app.listen(8080, () => console.log("petition server running on 8080"));
+app.listen(process.env.PORT || 8080, () =>
+    console.log("petition server running on 8080")
+);
