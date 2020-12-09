@@ -156,3 +156,9 @@ module.exports.deleteAcc = (userId) => {
             console.error("error in db.deleteUserFromUsers", err);
         });
 };
+
+module.exports.isEmailFree = (email) => {
+    const q = "SELECT * FROM users WHERE email = ($1)";
+    const params = [email];
+    return db.query(q, params);
+};

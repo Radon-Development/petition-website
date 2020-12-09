@@ -149,61 +149,75 @@ app.get("/register", (req, res) => {
 
 app.post("/register", (req, res) => {
     const { first, last, email, pw } = req.body;
-    let missingPw = false;
-    let missingFirst = false;
-    let missingLast = false;
-    let missingEmail = false;
-    if (!pw) {
-        missingPw = true;
-        if (!first) {
-            missingFirst = true;
-        }
-        if (!last) {
-            missingLast = true;
-        }
-        if (!email) {
-            missingEmail = true;
-        }
-        res.render("register", {
-            missingFirst,
-            missingLast,
-            missingEmail,
-            missingPw,
-        });
-    } else {
-        hash(pw)
-            .then((hashedPw) => {
-                db.addNewUser(first, last, email, hashedPw)
-                    .then(({ rows }) => {
-                        req.session.userId = rows[0].id;
-                        res.redirect("/profile");
-                    })
-                    .catch((err) => {
-                        console.error("error in db.addNewUser: ", err);
-                        if (!first) {
-                            missingFirst = true;
-                        }
-                        if (!last) {
-                            missingLast = true;
-                        }
-                        if (!email) {
-                            missingEmail = true;
-                        }
-                        if (!pw) {
-                            missingPw = true;
-                        }
-                        res.render("register", {
-                            missingFirst,
-                            missingLast,
-                            missingEmail,
-                            missingPw,
-                        });
+    db.isEmailFree(email)
+        .then(({ rows }) => {
+            if (rows.length > 0) {
+                const emailExists = true;
+                res.render("register", { emailExists });
+            } else {
+                let missingPw = false;
+                let missingFirst = false;
+                let missingLast = false;
+                let missingEmail = false;
+                if (!pw) {
+                    missingPw = true;
+                    if (!first) {
+                        missingFirst = true;
+                    }
+                    if (!last) {
+                        missingLast = true;
+                    }
+                    if (!email) {
+                        missingEmail = true;
+                    }
+                    res.render("register", {
+                        missingFirst,
+                        missingLast,
+                        missingEmail,
+                        missingPw,
                     });
-            })
-            .catch((err) => {
-                console.error("error in hash: ", err);
-            });
-    }
+                } else {
+                    hash(pw)
+                        .then((hashedPw) => {
+                            db.addNewUser(first, last, email, hashedPw)
+                                .then(({ rows }) => {
+                                    req.session.userId = rows[0].id;
+                                    res.redirect("/profile");
+                                })
+                                .catch((err) => {
+                                    console.error(
+                                        "error in db.addNewUser: ",
+                                        err
+                                    );
+                                    if (!first) {
+                                        missingFirst = true;
+                                    }
+                                    if (!last) {
+                                        missingLast = true;
+                                    }
+                                    if (!email) {
+                                        missingEmail = true;
+                                    }
+                                    if (!pw) {
+                                        missingPw = true;
+                                    }
+                                    res.render("register", {
+                                        missingFirst,
+                                        missingLast,
+                                        missingEmail,
+                                        missingPw,
+                                    });
+                                });
+                        })
+                        .catch((err) => {
+                            console.error("error in hash: ", err);
+                        });
+                }
+            }
+        })
+        .catch((err) => {
+            console.error("error in db.isEmailFree: ", err);
+        });
 });
 
 app.get("/login", (req, res) => {

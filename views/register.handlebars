@@ -6,6 +6,8 @@
 
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
+    {{#if emailExists}}<p style="color: red;">This email is already exists, please use another email or log into your account</p>{{/if}}
+
     <div class="form">
         {{#if missingFirst}}<p id="firstS" style="color: red;">*</p>{{/if}}
         <p id="first">First Name</p>
