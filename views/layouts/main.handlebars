@@ -7,9 +7,22 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@800&display=swap" rel="stylesheet"> 
     <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@300&display=swap" rel="stylesheet"> 
-    <title>My Petition</title>
+    <title>{{title}}</title>
     </head>
 <body>
+    {{#if isAuthenticated}}
+    <nav>
+        <a href="/thanks">Thank You!</a>
+        <a href="/signers">See All Signers</a>
+        <a href="/profile/edit">Profile</a>
+        <a href="/logout">Log Out</a>
+    </nav>
+    {{else}}
+    <nav>
+        <a href="/register">Register</a>
+        <a href="/login">Log In</a>
+    </nav>
+    {{/if}}
     <div class="left">{{{body}}}</div>
     <div class="right"></div>
 </body>

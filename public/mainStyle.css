@@ -34,3 +34,8 @@ p {
 li {
     font-family: "Titillium Web", sans-serif;
 }
+
+nav {
+    position: absolute;
+    right: 0;
+}

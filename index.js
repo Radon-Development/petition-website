@@ -27,6 +27,7 @@ app.use(csurf());
 app.use((req, res, next) => {
     res.set("x-frame-options", "DENY");
     res.locals.csrfToken = req.csrfToken();
+    res.locals.isAuthenticated = req.session.userId;
     console.log("----------------------------");
     console.log(`${req.method} request coming in on route ${req.url}`);
     console.log("----------------------------");
@@ -44,7 +45,7 @@ app.get("/petition", (req, res) => {
         if (req.session.sigId) {
             res.redirect("/thanks");
         } else {
-            res.render("petition");
+            res.render("petition", { title: "Sign The Petition" });
         }
     } else {
         res.redirect("/login");
@@ -61,9 +62,7 @@ app.post("/petition", (req, res) => {
         .catch(() => {
             console.error("error in db.addSignature", err);
             const issue = true;
-            res.render("petition", {
-                issue,
-            });
+            res.render("petition", { issue });
         });
 });
 
@@ -76,7 +75,11 @@ app.get("/thanks", (req, res) => {
                     db.getSignature(req.session.sigId)
                         .then(({ rows }) => {
                             const usersig = rows[0].signature;
-                            res.render("thanks", { numOfRegistered, usersig });
+                            res.render("thanks", {
+                                title: "Thank You!",
+                                numOfRegistered,
+                                usersig,
+                            });
                         })
                         .catch((err) => {
                             console.error("error in db.getSignature", err);
@@ -122,7 +125,7 @@ app.get("/signers", (req, res) => {
                             rows[i].upperCity = upperCity;
                         }
                     }
-                    res.render("signers", { rows });
+                    res.render("signers", { title: "Signers", rows });
                 })
                 .catch((err) => {
                     console.error("error in db.allSigners", err);
@@ -143,7 +146,7 @@ app.get("/register", (req, res) => {
             res.redirect("/petition");
         }
     } else {
-        res.render("register");
+        res.render("register", { title: "Register" });
     }
 });
 
@@ -228,7 +231,7 @@ app.get("/login", (req, res) => {
             res.redirect("/petition");
         }
     } else {
-        res.render("login");
+        res.render("login", { title: "Login" });
     }
 });
 
@@ -284,7 +287,7 @@ app.post("/login", (req, res) => {
 
 app.get("/profile", (req, res) => {
     if (req.session.userId) {
-        res.render("profile");
+        res.render("profile", { title: "Profile" });
     } else {
         res.redirect("/login");
     }
@@ -312,7 +315,7 @@ app.get("/signers/:city", (req, res) => {
         if (req.session.sigId) {
             db.getSignersByCity(city)
                 .then(({ rows }) => {
-                    res.render("signers", { rows });
+                    res.render("signers", { title: "Signers By City", rows });
                 })
                 .catch((err) => {
                     console.error("error in db.getSignersByCity: ", err);
@@ -329,7 +332,7 @@ app.get("/profile/edit", (req, res) => {
     if (req.session.userId) {
         db.getProfileInfo(req.session.userId)
             .then(({ rows }) => {
-                res.render("editProfile", { rows });
+                res.render("editProfile", { title: "Edit Profile", rows });
             })
             .catch((err) => {
                 console.error("error in db.getProfileInfo: ", err);
@@ -394,6 +397,11 @@ app.post("/profile/edit", (req, res) => {
                 console.error("error in db.updateUserInfoWithoutPw: ", err);
             });
     }
+});
+
+app.get("/logout", (req, res) => {
+    req.session = null;
+    res.redirect("/login");
 });
 
 app.get("*", (req, res) => {
