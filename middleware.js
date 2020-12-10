@@ -7,21 +7,21 @@ module.exports.requireLoggedInUser = (req, res, next) => {
 
 module.exports.requireLoggedOutUser = (req, res, next) => {
     if (req.session.userId) {
-        res.redirect("/petition");
+        return res.redirect("/petition");
     }
     next();
 };
 
 module.exports.requireUnsignedPetition = (req, res, next) => {
     if (req.session.sigId) {
-        res.redirect("/thanks");
+        return res.redirect("/thanks");
     }
     next();
 };
 
 module.exports.requireSignedPetition = (req, res, next) => {
     if (!req.session.sigId) {
-        res.redirect("/petition");
+        return res.redirect("/petition");
     }
     next();
 };
