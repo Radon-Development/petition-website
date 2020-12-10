@@ -1,6 +1,8 @@
 <h1>Login page</h1>
 
-<p>if you didn't create an account yet, please sign up <a href="/register">here</a></p>
+<div class="login">
+
+<h4>Welcome back!</h4>
 
 <form method='POST'>
 
@@ -9,11 +11,16 @@
     {{#if issue}}<p style="color: red;">Something went wrong, please try again</p>{{/if}}
     {{#if emailNotExists}}<p style="color: red;">This email doesn't exist, please sign up</p>{{/if}}
 
-    <p>Email Address</p>
-        <input type="text" name="email">
-    <p>Password</p>
-        <input type="password" name="typedPw">
+    <input type="text" name="email" placeholder="Email Address">
+    <input type="password" name="typedPw" placeholder="Password">
 
-    <button> submit </button>
+    <button> Sign in </button>
 
 </form>
+
+<p>Don't have an account?<a href="/register">Sign up</a></p>
+
+</div>
+
+
+<link rel="stylesheet" href="../loginStyle.css">

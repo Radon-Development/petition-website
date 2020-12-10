@@ -1,8 +1,10 @@
 <h1>Registration page</h1>
 
-<p>if you have an account already, please sign in <a href="/login">here</a></p>
+<div class="register">
 
-<form method='POST'>
+<h4>Join us!</h4>
+
+    <form method='POST'>
 
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
@@ -10,22 +12,25 @@
 
     <div class="form">
         {{#if missingFirst}}<p id="firstS" style="color: red;">*</p>{{/if}}
-        <p id="first">First Name</p>
-        <input id="firstI" type="text" name="first">
+        <input id="firstI" type="text" name="first" placeholder="First Name">
         {{#if missingLast}}<p id="lastS" style="color: red;">*</p>{{/if}}
-        <p id="last">Last Name</p>
-        <input id="lastI" type="text" name="last">
+        <input id="lastI" type="text" name="last" placeholder="Last Name">
         {{#if missingEmail}}<p id="emailS" style="color: red;">*</p>{{/if}}
-        <p id="email">Email Address</p>
-        <input id="emailI" type="text" name="email">
+        <input id="emailI" type="text" name="email" placeholder="Email Address">
         {{#if missingPw}}<p id="pwS" style="color: red;">*</p>{{/if}}
-        <p id="pw">Password</p>
-        <input id="pwI" type="password" name="pw">
+        <input id="pwI" type="password" name="pw" placeholder="Password">
     </div>
 
-    <button> submit </button>
+    <button>Register</button>
 
 </form>
+
+<p>Already have an account?<a href="/login">Login</a></p>
+
+</div>
+
+
+
 
 <link rel="stylesheet" href="../registerStyle.css">
 
