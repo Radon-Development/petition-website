@@ -4,10 +4,12 @@
     width: 280px;
     height: 370px;
     margin-left: 50%;
+    transform: translateX(-50%);
     background-color: white;
     border-radius: 10px;
     display: grid;
     border-top: #2f92a5 solid 4px;
+    margin-top: 10%;
 }
 
 button {

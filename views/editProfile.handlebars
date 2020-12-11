@@ -1,6 +1,8 @@
 <h1>Edit profile page</h1>
 
-<form method='POST'>
+<div class="edit">
+
+    <form method='POST'>
 
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
@@ -21,8 +23,17 @@
         <input type="text" name="url" value={{this.url}}>
     {{/rows}}
 
-    <button> update </submit>
+    <button> Update </submit>
 
-    <button name="deleteAcc"> Delete your account </button>
+    <button id="delete" name="deleteAcc"> Delete your account </button>
+    <a href="/thanks">Cancel</a>
 
 </form>
+
+</div>
+
+
+<link rel="stylesheet" href="../edit-profile-style.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="../registerScript.js"></script>

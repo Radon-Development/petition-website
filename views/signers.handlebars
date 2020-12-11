@@ -2,6 +2,6 @@
 <p>Here are all the people who signed:</p>
 <ul>
     {{#rows}}
-    <li>✔{{#if this.url}}<a href="{{this.url}}">{{this.first}} {{this.last}}, </a>{{else}}{{this.first}} {{this.last}}, {{/if}} {{#if this.age}} ,{{/if}}{{this.age}} <a href="/signers/{{this.city}}">{{this.upperCity}}</a></li>
+    <li>✍️{{#if this.url}}<a href="{{this.url}}">{{this.first}} {{this.last}} | </a>{{else}}{{this.first}} {{this.last}} | {{/if}} {{#if this.age}} {{this.age}} | {{/if}}<a href="/signers/{{this.city}}"> {{this.upperCity}}</a></li>
     {{/rows}}
 </ul>

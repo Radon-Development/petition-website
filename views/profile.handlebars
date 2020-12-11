@@ -1,19 +1,24 @@
-<h1>Profile page</h1>
+<div class="profile">
 
-<form method='POST'>
+    <h4>Your Profile</h4>
+
+    <p>You don't have to share this info with us</p>
+
+    <form method='POST'>
 
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
     <div class="form">
-        <p>Age</p>
-        <input type="text" name="age">
-        <p>City</p>
-        <input type="text" name="city">
+        <input type="text" name="age" placeholder="Age">
+        <input type="text" name="city" placeholder="City">
         {{#if urlIssue}}<p style="color: red;">Please make sure that you entered a valid URL</p>{{/if}}
-        <p>Homepage</p>
-        <input type="text" name="url">
+        <input type="text" name="url" placeholder="Homepage">
     </div>
 
     <button> submit </button>
 
 </form>
+
+</div>
+
+<link rel="stylesheet" href="../profile-style.css">

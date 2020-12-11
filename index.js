@@ -262,7 +262,17 @@ app.post("/login", requireLoggedOutUser, (req, res) => {
 });
 
 app.get("/profile", requireLoggedInUser, (req, res) => {
-    res.redirect("/login");
+    db.didUserVisitProfilePage(req.session.userId)
+        .then((userProfileId) => {
+            if (userProfileId.rows[0]) {
+                res.redirect("/thanks");
+            } else {
+                res.render("profile");
+            }
+        })
+        .catch((err) => {
+            console.error("error in db.didUserVisitProfilePage: ", err);
+        });
 });
 
 app.post("/profile", requireLoggedInUser, (req, res) => {
@@ -287,10 +297,16 @@ app.get(
     requireSignedPetition,
     (req, res) => {
         const { city } = req.params;
-
         db.getSignersByCity(city)
             .then(({ rows }) => {
-                res.render("signers", { title: "Signers By City", rows });
+                let upperCity = city[0].toUpperCase();
+                for (let i = 1; i < city.length; i++) {
+                    upperCity += city[i];
+                }
+                res.render("signers", {
+                    title: `Signers By City, ${upperCity}`,
+                    rows,
+                });
             })
             .catch((err) => {
                 console.error("error in db.getSignersByCity: ", err);
@@ -368,6 +384,10 @@ app.post("/profile/edit", requireLoggedInUser, (req, res) => {
 app.get("/logout", requireLoggedInUser, (req, res) => {
     req.session = null;
     res.redirect("/register");
+});
+
+app.get("/about", (req, res) => {
+    res.render("about", { title: "About This Project" });
 });
 
 app.get("*", (req, res) => {

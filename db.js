@@ -162,3 +162,9 @@ module.exports.doesEmailExists = (email) => {
     const params = [email];
     return db.query(q, params);
 };
+
+module.exports.didUserVisitProfilePage = (userId) => {
+    const q = "SELECT id FROM user_profiles WHERE user_id = ($1)";
+    const params = [userId];
+    return db.query(q, params);
+};
