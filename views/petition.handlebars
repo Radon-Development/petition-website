@@ -1,24 +1,22 @@
-<h1>Shopping for groceries is not an easy task</h1>
-<div class="container">
-    <div class="container-right">
-        <p>Sign our petition to establish speedy checkouts in grocery shops as a national competitive sport</p>
-    </div>
-    <div class="container-left">
+<div class="petition">
+
+    <h1 class="fw9">SAVE THE HUMMUS!</h1>
+
+    <h4>Sign our petition to make unaceptable Hummus combination illegal</h4>
+
+    <p>Help us terminate the Hummus-avocade, Hummus-truffle, Hummus-pizza and the like combinations</p>
+
     <form method='POST'>
-        <div>
             {{#if issue}}<p style="color: red;">Please fill in your signature</p>{{/if}}
-        </div>
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
-        <div class="signature">
             <input id= "sig" type="hidden" name="signature">
             <p>Sign Here</p>
             <canvas id="canvas" width="300" height="50" style="border: 1px black dashed;"></canvas>        
-        </div>
-        <button> submit </button>
+        <button> Count Me In </button>
     </form>
+
 </div>
-</div>
-{{!-- <img src="../checkout.gif" alt="checkout"> --}}
+
  
 
 <link rel="stylesheet" href="../petitionStyle.css">

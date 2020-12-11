@@ -51,7 +51,10 @@ app.get(
     requireLoggedInUser,
     requireUnsignedPetition,
     (req, res) => {
-        res.render("petition", { title: "Sign The Petition" });
+        res.render("petition", {
+            title: "Sign The Petition",
+            name: req.session.name,
+        });
     }
 );
 
@@ -69,7 +72,7 @@ app.post(
             .catch(() => {
                 console.error("error in db.addSignature", err);
                 const issue = true;
-                res.render("petition", { issue });
+                res.render("petition", { issue, name: req.session.name });
             });
     }
 );
@@ -85,6 +88,7 @@ app.get("/thanks", requireLoggedInUser, requireSignedPetition, (req, res) => {
                         title: "Thank You!",
                         numOfRegistered,
                         usersig,
+                        name: req.session.name,
                     });
                 })
                 .catch((err) => {
@@ -123,7 +127,11 @@ app.get("/signers", requireLoggedInUser, requireSignedPetition, (req, res) => {
                     rows[i].upperCity = upperCity;
                 }
             }
-            res.render("signers", { title: "Signers", rows });
+            res.render("signers", {
+                title: "Signers",
+                rows,
+                name: req.session.name,
+            });
         })
         .catch((err) => {
             console.error("error in db.allSigners", err);
@@ -219,9 +227,13 @@ app.post("/login", requireLoggedOutUser, (req, res) => {
                 const emailNotExists = true;
                 res.render("login", { emailNotExists });
             } else {
-                db.getHashedPwandUserId(email)
+                db.getHashedPwAndUserIdAndFirst(email)
                     .then(({ rows }) => {
-                        const { password: hashedPw, id: userId } = rows[0];
+                        const {
+                            password: hashedPw,
+                            id: userId,
+                            first,
+                        } = rows[0];
                         compare(typedPw, hashedPw)
                             .then((result) => {
                                 if (result) {
@@ -231,6 +243,7 @@ app.post("/login", requireLoggedOutUser, (req, res) => {
                                             if (sigId.rows[0]) {
                                                 req.session.sigId =
                                                     sigId.rows[0].id;
+                                                req.session.name = first;
                                                 res.redirect("/thanks");
                                             } else {
                                                 res.redirect("/petition");
@@ -267,7 +280,10 @@ app.get("/profile", requireLoggedInUser, (req, res) => {
             if (userProfileId.rows[0]) {
                 res.redirect("/thanks");
             } else {
-                res.render("profile");
+                res.render("profile", {
+                    title: "Profile",
+                    name: req.session.name,
+                });
             }
         })
         .catch((err) => {
@@ -287,7 +303,7 @@ app.post("/profile", requireLoggedInUser, (req, res) => {
             });
     } else {
         const urlIssue = true;
-        res.render("profile", { urlIssue });
+        res.render("profile", { urlIssue, name: req.session.name });
     }
 });
 
@@ -306,6 +322,7 @@ app.get(
                 res.render("signers", {
                     title: `Signers By City, ${upperCity}`,
                     rows,
+                    name: req.session.name,
                 });
             })
             .catch((err) => {
@@ -317,7 +334,11 @@ app.get(
 app.get("/profile/edit", requireLoggedInUser, (req, res) => {
     db.getProfileInfo(req.session.userId)
         .then(({ rows }) => {
-            res.render("editProfile", { title: "Edit Profile", rows });
+            res.render("editProfile", {
+                title: "Edit Profile",
+                rows,
+                name: req.session.name,
+            });
         })
         .catch((err) => {
             console.error("error in db.getProfileInfo: ", err);

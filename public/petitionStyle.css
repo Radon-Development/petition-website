@@ -1,27 +1,36 @@
-.container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    height: 60%;
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+        url(../hummus-bg.jpg);
+    background-size: cover;
 }
 
-.container-left {
-    grid-column: 1/2;
-    grid-row: 1/3;
+.petition {
+    text-align: center;
+    width: 30%;
+    height: 80%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 10%;
+    color: white;
 }
 
-.container-right {
-    grid-column: 2/3;
-    grid-row: 1/2;
+h1 {
+    font-size: 75px;
+    line-height: 0.9;
+    margin-bottom: 15px;
 }
 
-input {
-    border: black 1px solid;
-    width: 150px;
-    box-shadow: 0 0 8px #666;
-    behavior: url("PIE.htc");
+h4 {
+    font-size: 20px;
 }
 
 button {
-    cursor: pointer;
+    display: block;
+    margin-left: 50%;
+    transform: translateX(-50%);
+}
+
+canvas {
+    background-color: white;
+    cursor: url("../pen.png") 2 35, auto;
 }

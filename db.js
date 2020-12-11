@@ -39,8 +39,8 @@ module.exports.addNewUser = (first, last, email, pw) => {
     return db.query(q, params);
 };
 
-module.exports.getHashedPwandUserId = (email) => {
-    const q = "SELECT password, id FROM users WHERE email = ($1)";
+module.exports.getHashedPwAndUserIdAndFirst = (email) => {
+    const q = "SELECT password, id, first FROM users WHERE email = ($1)";
     const params = [email];
     return db.query(q, params);
 };

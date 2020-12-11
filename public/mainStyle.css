@@ -3,28 +3,35 @@
     box-sizing: border-box;
 }
 
-h1 {
-    font-family: "Raleway", sans-serif;
-    font-size: 45px;
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
+        url(../hummus-bg.jpg);
+    background-size: cover;
+    color: white;
 }
 
+h1 {
+    font-family: "Raleway", sans-serif;
+    font-weight: 900;
+}
+
+a,
 h4,
 p,
 button,
 input {
-    font-family: "Titillium Web", sans-serif;
+    font-family: "Raleway", sans-serif;
 }
 
 li {
-    font-family: "Titillium Web", sans-serif;
     list-style: none;
     margin-bottom: 2.25rem;
 }
 
 a {
-    font-family: "Titillium Web", sans-serif;
     text-decoration: none;
     justify-self: center;
+    color: white;
 }
 
 nav {
@@ -40,13 +47,16 @@ footer {
     bottom: 0;
 }
 
-img {
-    background-color: #2f92a5;
-    border-radius: 50%;
-    padding: 5px;
-    height: 30px;
-}
-
 input {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+}
+
+button {
+    cursor: pointer;
+}
+
+.name {
+    display: contents;
+    justify-self: center;
+    color: white;
 }
