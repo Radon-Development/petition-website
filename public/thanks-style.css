@@ -54,3 +54,8 @@ img {
     box-shadow: 0px 10px 15px #8b764c;
     color: #fff;
 }
+
+.thanks > p {
+    font-size: 20px;
+    line-height: 2;
+}
