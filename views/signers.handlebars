@@ -1,9 +1,9 @@
 <div class="signers">
 
-    <h1>All the Hummus-Saviors</h1>
+    <h1>All the Hummus-Saviors{{#if upperCity}} in {{upperCity}} {{/if}}</h1>
     <ul>
         {{#rows}}
-        <li>🖋️{{#if this.url}}<a href="{{this.url}}">{{this.first}} {{this.last}}</a><p> | </p>{{else}}{{this.first}} {{this.last}} | {{/if}} {{#if this.age}} {{this.age}} | {{/if}}<a href="/signers/{{this.city}}"> {{this.upperCity}}</a></li>
+        <li>🖋️{{#if this.url}}<a href="{{this.url}}">{{this.first}} {{this.last}}</a>{{else}}{{this.first}} {{this.last}} {{/if}} {{#if this.age}} <p> | </p> {{this.age}} {{/if}} {{#if this.city}} <p> | </p> {{/if}} <a href="/signers/{{this.city}}"> {{this.upperCity}}</a></li>
         {{/rows}}
     </ul>
 

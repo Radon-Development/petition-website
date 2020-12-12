@@ -322,6 +322,7 @@ app.get(
                 res.render("signers", {
                     title: `Signers By City, ${upperCity}`,
                     rows,
+                    upperCity,
                     name: req.session.name,
                 });
             })
@@ -361,7 +362,7 @@ app.post("/profile/edit", requireLoggedInUser, (req, res) => {
     if (typeof deleteAcc === "string") {
         db.deleteAcc(req.session.userId);
         req.session = null;
-        res.redirect("/login");
+        res.redirect("/register");
     }
     if (typeof update === "string") {
         if (typedPw) {
