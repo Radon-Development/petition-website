@@ -43,7 +43,7 @@ app.use((req, res, next) => {
 app.use(express.static("./public"));
 
 app.get("/", (req, res) => {
-    res.redirect("/register");
+    res.render("landing");
 });
 
 app.get(
