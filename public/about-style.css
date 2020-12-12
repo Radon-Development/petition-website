@@ -1,0 +1,12 @@
+.about {
+    text-align: center;
+    width: 32%;
+    height: 80%;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    margin-top: 5%;
+}
+
+.text {
+    line-height: 2.5;
+}

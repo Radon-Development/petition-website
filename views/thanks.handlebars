@@ -1,12 +1,22 @@
-<h1>Thanks page</h1>
-<h2>Thank you for signing!</h2>
+<div class="thanks">
+
+<h1>Thank you for saving the Hummus!</h1>
 <img src="{{usersig}}" alt="your signature">
-<a href="/signers">Here are all the {{numOfRegistered}} signers</a>
+<a href="/signers">Click to see all the {{numOfRegistered}} Hummus-saviors</a>
 
 <form method='POST'>
 
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
-    <button name="deleteSig"> Delete your signature </button>
+    <button class="btn" name="deleteSig"> Delete your signature </button>
             
 </form>
+
+</div>
+
+
+
+<link rel="stylesheet" href="../thanks-style.css">
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="../thanks-script.js"></script>

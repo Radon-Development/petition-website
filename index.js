@@ -334,7 +334,7 @@ app.get(
 app.get("/profile/edit", requireLoggedInUser, (req, res) => {
     db.getProfileInfo(req.session.userId)
         .then(({ rows }) => {
-            res.render("editProfile", {
+            res.render("edit-profile", {
                 title: "Edit Profile",
                 rows,
                 name: req.session.name,

@@ -7,24 +7,18 @@
     <h1 class="title">Edit profile</h1>
 
     {{#rows}}
-    <label class="first">First Name
+    <label for="first" class="firstL">First Name</label>
         <input class="first" type="text" name="first" value={{this.first}}>
-    </label>
-    <label class="last">Last Name
+    <label for="last" class="lastL">Last Name</label>
         <input class="last" type="text" name="last" value={{this.last}}>
-    </label>
-    <label class="email">Email
+    <label for="email" class="emailL">Email</label>
         <input class="email" type="text" name="email" value={{this.email}}>
-    </label>
-    <label class="pw">Password
+    <label for="typedPw" class="pwL">Password</label>
         <input class="pw" type="password" name="typedPw">
-    </label>
-    <label class="age">Age
+    <label for="age" class="ageL">Age</label>
         <input class="age" type="text" name="age" value={{this.age}}>
-    </label>
-    <label class="city">City
+    <label for="city" class="cityL">City</label>
         <input class="city" type="text" name="city" value={{this.city}}>
-    </label>
     <label class="url">Homepage
         <input class="url" type="text" name="url" value={{this.url}}>
     </label>
@@ -43,4 +37,4 @@
 <link rel="stylesheet" href="../edit-profile-style.css">
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="../registerScript.js"></script>
+<script src="../edit-profile-script.js"></script>
