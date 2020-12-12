@@ -7,20 +7,21 @@ body {
     background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
         url(../hummus-bg.jpg);
     background-size: cover;
-    color: white;
 }
 
 h1 {
     font-family: "Raleway", sans-serif;
-    font-weight: 900;
+    color: white;
 }
 
 a,
 h4,
 p,
 button,
-input {
-    font-family: "Raleway", sans-serif;
+input,
+label {
+    font-family: "Andika New Basic", sans-serif;
+    color: white;
 }
 
 li {
@@ -29,9 +30,15 @@ li {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: underline;
     justify-self: center;
     color: white;
+}
+
+a:hover {
+    text-decoration: underline;
+    text-decoration-color: #21180d;
+    color: #21180d;
 }
 
 nav {
@@ -42,21 +49,37 @@ nav {
     gap: 7px;
 }
 
-footer {
+.hi > p {
+    display: contents;
     position: absolute;
-    bottom: 0;
+    margin-left: 0;
+    color: white;
+}
+
+.hi {
+    margin-top: 15px;
 }
 
 input {
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+    color: black;
 }
 
 button {
     cursor: pointer;
+    color: black;
+    display: block;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px;
+    margin-top: 20px;
+    height: 30px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 1);
+    transition: all 0.3s ease 0s;
 }
 
-.name {
-    display: contents;
-    justify-self: center;
-    color: white;
+.button-hover {
+    background-color: #8b764c;
+    box-shadow: 0px 10px 15px #8b764c;
+    color: #fff;
 }

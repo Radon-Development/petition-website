@@ -1,34 +1,41 @@
-<h1>Edit profile page</h1>
+<form method='POST'></form>
+
+<input type="hidden" name="_csrf" value="{{csrfToken}}">
 
 <div class="edit">
 
-    <form method='POST'>
-
-    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    <h1 class="title">Edit profile</h1>
 
     {{#rows}}
-    <p>First Name</p>
-        <input type="text" name="first" value={{this.first}}>
-    <p>Last Name</p>
-        <input type="text" name="last" value={{this.last}}>
-    <p>Email</p>
-        <input type="text" name="email" value={{this.email}}>
-    <p>Password</p>
-        <input type="password" name="typedPw">
-    <p>Age</p>
-        <input type="text" name="age" value={{this.age}}>
-    <p>City</p>
-        <input type="text" name="city" value={{this.city}}>
-    <p>Homepage</p>
-        <input type="text" name="url" value={{this.url}}>
+    <label class="first">First Name
+        <input class="first" type="text" name="first" value={{this.first}}>
+    </label>
+    <label class="last">Last Name
+        <input class="last" type="text" name="last" value={{this.last}}>
+    </label>
+    <label class="email">Email
+        <input class="email" type="text" name="email" value={{this.email}}>
+    </label>
+    <label class="pw">Password
+        <input class="pw" type="password" name="typedPw">
+    </label>
+    <label class="age">Age
+        <input class="age" type="text" name="age" value={{this.age}}>
+    </label>
+    <label class="city">City
+        <input class="city" type="text" name="city" value={{this.city}}>
+    </label>
+    <label class="url">Homepage
+        <input class="url" type="text" name="url" value={{this.url}}>
+    </label>
     {{/rows}}
 
-    <button> Update </submit>
+    <button class="update"> Update </button>
+    
+    <a class="cncl" href="/thanks">Cancel</a>
 
-    <button id="delete" name="deleteAcc"> Delete your account </button>
-    <a href="/thanks">Cancel</a>
+    <button class="del" id="delete" name="deleteAcc"> Delete account </button>
 
-</form>
 
 </div>
 

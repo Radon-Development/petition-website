@@ -3,6 +3,8 @@ const sig = $("#sig");
 let dataURL;
 var ctx = canvas[0].getContext("2d");
 
+const btn = $("#btn");
+
 canvas.on("mousedown", (e) => {
     let canvasXAxis = canvas.offset().left;
     let canvasYAxis = canvas.offset().top;
@@ -27,4 +29,12 @@ canvas.on("mouseup", () => {
     canvas.unbind("mousemove");
     dataURL = document.querySelector("#canvas").toDataURL();
     sig.val(dataURL);
+});
+
+btn.on("mouseenter", () => {
+    btn.addClass("button-hover");
+});
+
+btn.on("mouseleave", () => {
+    btn.removeClass("button-hover");
 });

@@ -13,10 +13,11 @@ const restaurants = [
     { name: "Bobbe", url: "https://www.bobbe.berlin/" },
 ];
 
-const nameLine = $(".name");
+const restaurant = $(".restaurant");
 
-console.log("nameLine: ", nameLine);
-
-nameLine.html(Handlebars.templates.hummusId(restaurants[0]));
-
-// $(document).ready(() => {});
+$(document).ready(() => {
+    let randomIndex = Math.floor(Math.random() * 5);
+    restaurant.html(
+        `<a href="${restaurants[randomIndex].url}">${restaurants[randomIndex].name}</a>`
+    );
+});

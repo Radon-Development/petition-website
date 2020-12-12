@@ -1,51 +1,98 @@
 .edit {
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
     text-align: center;
-    width: 280px;
-    height: 370px;
+    width: 40%;
+    height: 50%;
     margin-left: 50%;
     transform: translateX(-50%);
-    background-color: white;
-    border-radius: 10px;
-    display: grid;
-    border-top: #2f92a5 solid 4px;
-    margin-top: 10%;
-}
-
-button {
+    margin-top: 1%;
     color: white;
-    background-color: #2f92a5;
-    width: 50%;
-    border-radius: 5px;
-    height: 30px;
-    font-weight: bold;
-}
-
-p {
-    background-color: #d6d1ce;
-    align-self: end;
-}
-
-h4 {
-    font-weight: bold;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    align-items: center;
 }
 
 input {
-    border: 1px lightgrey solid;
-    box-shadow: none;
-    border-radius: 5px;
-    display: block;
-    width: 80%;
-    margin-left: 5%;
-    margin-right: 5%;
-    line-height: 2;
-    margin-bottom: 15px;
-    margin-left: auto;
-    margin-right: auto;
+    width: 130px;
+    height: 20px;
 }
 
-a {
-    text-decoration: underline;
+button {
+    width: 90px;
+}
+
+.title {
+    grid-column: 1/3;
+    grid-row: 1/2;
+}
+
+.first {
+    grid-column: 1/2;
+    grid-row: 2/3;
+}
+
+.last {
+    grid-column: 2/3;
+    grid-row: 2/3;
+}
+
+.email {
+    grid-column: 1/2;
+    grid-row: 3/4;
+}
+
+.pw {
+    grid-column: 2/3;
+    grid-row: 3/4;
+}
+
+.age {
+    grid-column: 1/2;
+    grid-row: 4/5;
+}
+
+.city {
+    grid-column: 2/3;
+    grid-row: 4/5;
+}
+
+.url {
+    grid-column: 1/3;
+    grid-row: 5/6;
+}
+
+.update {
+    grid-column: 1/2;
+    grid-row: 6/7;
+    font-size: 16px;
+    padding-bottom: 5px;
+}
+
+.cncl {
+    grid-column: 2/3;
+    grid-row: 6/7;
+    text-decoration: none;
+    background-color: white;
+    cursor: pointer;
     color: black;
-    font-weight: bold;
+    display: block;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px;
+    margin-top: 20px;
+    height: 30px;
+    width: 90px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 1);
+    transition: all 0.3s ease 0s;
+}
+
+.cncl:hover {
+    text-decoration: none;
+    color: black;
+}
+
+.del {
+    grid-column: 1/3;
+    grid-row: 7/8;
+    width: 150px;
 }

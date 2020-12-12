@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../mainStyle.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Castoro&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Andika+New+Basic&display=swap" rel="stylesheet">
+
     <title>{{title}}</title>
 </head>
 
 <body>
     {{#if isAuthenticated}}
+    <div class="hi">
+        <p>Hi {{name}}👋 here is a good place to eat Hummus in Berlin: </p><p class="restaurant"></p>
+    </div>
     <nav>
-        <div class="name"></div>
-        <script id="hummusId" type="text/x-handlebars-template">
-            <p id="name">Hi {{name}}, here is a good place to eat Hummus: <a href="{{url}}">Example</a> |</p>
-        </script>
         <a href="/about">About |</a>
         <a href="/thanks">Thank You! |</a>
         <a href="/signers">See All Signers |</a>
@@ -36,6 +36,5 @@
 
 </html>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.5/handlebars.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="../../main-script.js"></script>
