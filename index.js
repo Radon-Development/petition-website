@@ -346,59 +346,82 @@ app.get("/profile/edit", requireLoggedInUser, (req, res) => {
 });
 
 app.post("/profile/edit", requireLoggedInUser, (req, res) => {
-    const { first, last, email, typedPw, age, city, url, deleteAcc } = req.body;
+    const {
+        first,
+        last,
+        email,
+        typedPw,
+        age,
+        city,
+        url,
+        update,
+        deleteAcc,
+    } = req.body;
+
     if (typeof deleteAcc === "string") {
         db.deleteAcc(req.session.userId);
         req.session = null;
         res.redirect("/login");
     }
-    if (typedPw) {
-        hash(typedPw)
-            .then((hashedPw) => {
-                db.updateUserInfoWithPw(
-                    first,
-                    last,
-                    email,
-                    hashedPw,
-                    req.session.userId
-                )
-                    .then(() => {
-                        db.updateUserProfile(age, city, url, req.session.userId)
-                            .then(() => {
-                                res.redirect("/thanks");
-                            })
-                            .catch((err) => {
-                                console.error(
-                                    "error in db.updateUserProfile: ",
-                                    err
-                                );
-                            });
-                    })
-                    .catch((err) => {
-                        console.error(
-                            "error in db.updateUserInfoWithPw: ",
-                            err
-                        );
-                    });
-            })
-            .catch((err) => {
-                console.error("error in hash: ", err);
-            });
-    }
-    if (typeof deleteAcc != "string" && !typedPw) {
-        db.updateUserInfoWithoutPw(first, last, email, req.session.userId)
-            .then(() => {
-                db.updateUserProfile(age, city, url, req.session.userId)
-                    .then(() => {
-                        res.redirect("/thanks");
-                    })
-                    .catch((err) => {
-                        console.error("error in db.updateUserProfile: ", err);
-                    });
-            })
-            .catch((err) => {
-                console.error("error in db.updateUserInfoWithoutPw: ", err);
-            });
+    if (typeof update === "string") {
+        if (typedPw) {
+            hash(typedPw)
+                .then((hashedPw) => {
+                    db.updateUserInfoWithPw(
+                        first,
+                        last,
+                        email,
+                        hashedPw,
+                        req.session.userId
+                    )
+                        .then(() => {
+                            db.updateUserProfile(
+                                age,
+                                city,
+                                url,
+                                req.session.userId
+                            )
+                                .then(() => {
+                                    if (first) {
+                                        req.session.name = first;
+                                    }
+                                    res.redirect("/thanks");
+                                })
+                                .catch((err) => {
+                                    console.error(
+                                        "error in db.updateUserProfile: ",
+                                        err
+                                    );
+                                });
+                        })
+                        .catch((err) => {
+                            console.error(
+                                "error in db.updateUserInfoWithPw: ",
+                                err
+                            );
+                        });
+                })
+                .catch((err) => {
+                    console.error("error in hash: ", err);
+                });
+        } else {
+            db.updateUserInfoWithoutPw(first, last, email, req.session.userId)
+                .then(() => {
+                    db.updateUserProfile(age, city, url, req.session.userId)
+                        .then(() => {
+                            res.redirect("/thanks");
+                        })
+                        .catch((err) => {
+                            console.error(
+                                "error in db.updateUserProfile: ",
+                                err
+                            );
+                        });
+                })
+                .catch((err) => {
+                    console.error("error in db.updateUserInfoWithoutPw: ", err);
+                });
+        }
     }
 });
 

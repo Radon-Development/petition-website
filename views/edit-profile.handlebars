@@ -1,4 +1,4 @@
-<form method='POST'></form>
+<form method='POST'>
 
 <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
@@ -24,7 +24,7 @@
     </label>
     {{/rows}}
 
-    <button class="update"> Update </button>
+    <button name="update" class="update"> Update </button>
     
     <a class="cncl" href="/thanks">Cancel</a>
 
@@ -32,6 +32,8 @@
 
 
 </div>
+
+</form>
 
 
 <link rel="stylesheet" href="../edit-profile-style.css">

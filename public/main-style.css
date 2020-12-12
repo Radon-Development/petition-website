@@ -17,6 +17,7 @@ h1 {
 a,
 h4,
 p,
+li,
 button,
 input,
 label {
@@ -47,6 +48,10 @@ nav {
     top: 15px;
     display: flex;
     gap: 7px;
+}
+
+nav > p {
+    display: contents;
 }
 
 .hi > p {
