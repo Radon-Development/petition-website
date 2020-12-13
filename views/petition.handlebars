@@ -7,7 +7,7 @@
     <p>Help us terminate the Hummus-avocado, Hummus-truffle, Hummus-pizza and the like combinations</p>
 
     <form method='POST'>
-            {{#if issue}}<p style="color: red;">Please fill in your signature</p>{{/if}}
+            {{#if issue}}<p style="color: red; font-weight: bold">Please fill in your signature</p>{{/if}}
         <input type="hidden" name="_csrf" value="{{csrfToken}}">
             <input id= "sig" type="hidden" name="signature">
             <p>Sign Here</p>

@@ -7,17 +7,21 @@ Let's Save The Hummus!</h1>
 
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
-    {{#if emailExists}}<p style="color: red;">This email is already exists, please use another email or log into your account</p>{{/if}}
+    {{#if emailExists}}<p style="color: red; font-weight: bold">This email is already exists <br> Please use another email or log into your account</p>{{/if}}
 
     <div class="form">
-        {{#if missingFirst}}<p id="firstS" style="color: red;">*</p>{{/if}}
+
+        {{#if missingFirst}}<p style="color: red; font-weight: bold">You must fill in a first-name</p>{{/if}}
         <input id="firstI" type="text" name="first" placeholder="First Name">
-        {{#if missingLast}}<p id="lastS" style="color: red;">*</p>{{/if}}
+
+        {{#if missingLast}}<p  style="color: red; font-weight: bold">You must fill in a last-name</p>{{/if}}
         <input id="lastI" type="text" name="last" placeholder="Last Name">
-        {{#if missingEmail}}<p id="emailS" style="color: red;">*</p>{{/if}}
+
+        {{#if missingEmail}}<p style="color: red; font-weight: bold">You must fill in an email address</p>{{/if}}
         <input id="emailI" type="text" name="email" placeholder="Email Address">
-        {{#if missingPw}}<p id="pwS" style="color: red;">*</p>{{/if}}
-        <input id="pwI" type="password" name="pw" placeholder="Password">
+
+        {{#if missingPw}}<p style="color: red; font-weight: bold">You must fill in a password</p>{{/if}}
+        <input type="password" name="pw" placeholder="Password">
     </div>
 
     <button>Register</button>

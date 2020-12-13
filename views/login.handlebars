@@ -6,8 +6,8 @@
 
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
-    {{#if issue}}<p style="color: red;">Something went wrong, please try again</p>{{/if}}
-    {{#if emailNotExists}}<p style="color: red;">This email doesn't exist, please sign up</p>{{/if}}
+    {{#if issue}}<p style="color: red; font-weight: bold">Something went wrong, please try again</p>{{/if}}
+    {{#if emailNotExists}}<p style="color: red; font-weight: bold">This email doesn't exist, please sign up</p>{{/if}}
 
     <input type="text" name="email" placeholder="Email Address">
     <input type="password" name="typedPw" placeholder="Password">

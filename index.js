@@ -42,7 +42,7 @@ app.use((req, res, next) => {
 
 app.use(express.static("./public"));
 
-app.get("/", (req, res) => {
+app.get("/", requireLoggedOutUser, (req, res) => {
     res.render("landing");
 });
 
@@ -69,7 +69,7 @@ app.post(
                 req.session.sigId = rows[0].id;
                 res.redirect("/thanks");
             })
-            .catch(() => {
+            .catch((err) => {
                 console.error("error in db.addSignature", err);
                 const issue = true;
                 res.render("petition", { issue, name: req.session.name });
@@ -177,6 +177,7 @@ app.post("/register", requireLoggedOutUser, (req, res) => {
                             db.addNewUser(first, last, email, hashedPw)
                                 .then(({ rows }) => {
                                     req.session.userId = rows[0].id;
+                                    req.session.name = first;
                                     res.redirect("/profile");
                                 })
                                 .catch((err) => {
@@ -410,6 +411,9 @@ app.post("/profile/edit", requireLoggedInUser, (req, res) => {
                 .then(() => {
                     db.updateUserProfile(age, city, url, req.session.userId)
                         .then(() => {
+                            if (first) {
+                                req.session.name = first;
+                            }
                             res.redirect("/thanks");
                         })
                         .catch((err) => {

@@ -1,6 +1,6 @@
 <div class="profile">
 
-    <h4>Your Profile</h4>
+    <h1>Your Profile</h1>
 
     <p>You don't have to share this info with us</p>
 
@@ -8,16 +8,14 @@
 
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
-    <div class="form">
+        {{#if urlIssue}}<p style="color: red; font-weight: bold">Please make sure that you entered a valid URL</p>{{/if}}
         <input type="text" name="age" placeholder="Age">
         <input type="text" name="city" placeholder="City">
-        {{#if urlIssue}}<p style="color: red;">Please make sure that you entered a valid URL</p>{{/if}}
-        <input type="text" name="url" placeholder="Homepage">
-    </div>
+        <input type="text" name="url" placeholder="Homepage: http / https">
 
-    <button> submit </button>
+    <button> Submit </button>
 
-</form>
+    </form>
 
 </div>
 

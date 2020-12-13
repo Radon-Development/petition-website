@@ -56,3 +56,15 @@ body {
         transform: rotateX(25deg) translateZ(-2500px);
     }
 }
+
+h1,
+p,
+a {
+    color: #feda4a;
+    font-family: "Pathway Gothic One", sans-serif;
+}
+
+h1 {
+    font-size: 500%;
+    font-weight: 600;
+}
