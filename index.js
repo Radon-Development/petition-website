@@ -436,7 +436,10 @@ app.get("/logout", requireLoggedInUser, (req, res) => {
 });
 
 app.get("/about", (req, res) => {
-    res.render("about", { title: "About This Project" });
+    res.render("about", {
+        title: "About This Project",
+        name: req.session.name,
+    });
 });
 
 app.get("*", (req, res) => {
