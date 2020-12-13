@@ -64,7 +64,7 @@ module.exports.getSignersByCity = (city) => {
         "FROM users " +
         "LEFT JOIN user_profiles " +
         "ON users.id = user_profiles.user_id " +
-        "INNER JOIN signatures " +
+        "LEFT JOIN signatures " +
         "ON user_profiles.user_id = signatures.user_id " +
         "WHERE user_profiles.city = LOWER($1)";
     const params = [city];
