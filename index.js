@@ -443,7 +443,7 @@ app.get("/about", (req, res) => {
 });
 
 app.get("*", (req, res) => {
-    res.redirect("/register");
+    res.redirect("/");
 });
 
 if (require.main == module) {
