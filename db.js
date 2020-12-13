@@ -21,8 +21,8 @@ module.exports.allSigners = () => {
         "FROM users " +
         "LEFT JOIN user_profiles " +
         "ON users.id = user_profiles.user_id " +
-        "LEFT JOIN signatures " +
-        "ON user_profiles.user_id = signatures.user_id";
+        "RIGHT JOIN signatures " +
+        "ON users.id = signatures.user_id";
     return db.query(q);
 };
 
@@ -64,8 +64,8 @@ module.exports.getSignersByCity = (city) => {
         "FROM users " +
         "LEFT JOIN user_profiles " +
         "ON users.id = user_profiles.user_id " +
-        "LEFT JOIN signatures " +
-        "ON user_profiles.user_id = signatures.user_id " +
+        "RIGHT JOIN signatures " +
+        "ON users.id = signatures.user_id " +
         "WHERE user_profiles.city = LOWER($1)";
     const params = [city];
     return db.query(q, params);

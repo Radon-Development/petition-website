@@ -117,7 +117,6 @@ app.post("/thanks", requireLoggedInUser, requireSignedPetition, (req, res) => {
 app.get("/signers", requireLoggedInUser, requireSignedPetition, (req, res) => {
     db.allSigners()
         .then(({ rows }) => {
-            console.log(rows);
             for (let i = 0; i < rows.length; i++) {
                 const lowerCity = rows[i].city;
                 if (lowerCity) {
