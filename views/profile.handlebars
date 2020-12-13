@@ -8,12 +8,13 @@
 
     <input type="hidden" name="_csrf" value="{{csrfToken}}">
 
-        {{#if urlIssue}}<p style="color: red; font-weight: bold">Please make sure that you entered a valid URL</p>{{/if}}
         <input type="text" name="age" placeholder="Age">
         <input type="text" name="city" placeholder="City">
+        {{#if urlIssue}}<p style="color: red; font-weight: bold">Please make sure that you entered a valid URL</p>{{/if}}
         <input type="text" name="url" placeholder="Homepage: http / https">
 
     <button> Submit </button>
+    <a href="/petition">Skip</a>
 
     </form>
 

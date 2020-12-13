@@ -21,7 +21,7 @@ li,
 button,
 input,
 label {
-    font-family: "Andika New Basic", sans-serif;
+    font-family: "Roboto", sans-serif;
     color: white;
 }
 
@@ -38,8 +38,8 @@ a {
 
 a:hover {
     text-decoration: underline;
-    text-decoration-color: #21180d;
-    color: #21180d;
+    text-decoration-color: #94aa23;
+    color: #94aa23;
 }
 
 nav {
@@ -76,12 +76,11 @@ button {
     display: block;
     border-radius: 20px;
     height: 30px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 1);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease 0s;
 }
 
-.button-hover {
+button:hover {
     background-color: #8b764c;
-    box-shadow: 0px 10px 15px #8b764c;
     color: #fff;
 }

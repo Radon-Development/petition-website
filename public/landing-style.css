@@ -68,3 +68,11 @@ h1 {
     font-size: 500%;
     font-weight: 600;
 }
+
+.title > p {
+    margin-bottom: 100px;
+}
+
+#link {
+    text-align: center;
+}

@@ -15,6 +15,9 @@
 
 input {
     height: 20px;
+    height: 30px;
+    width: 200px;
+    text-indent: 10px;
 }
 
 button {
@@ -111,6 +114,7 @@ button {
     padding-bottom: 5px;
     align-self: center;
     justify-self: center;
+    padding-top: 6px;
 }
 
 .cncl {
@@ -124,16 +128,16 @@ button {
     border-radius: 20px;
     height: 30px;
     width: 90px;
-    box-shadow: 0px 8px 15px rgba(0, 0, 0, 1);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
     transition: all 0.3s ease 0s;
     align-self: center;
+    padding-top: 6px;
 }
 
 .cncl:hover {
     text-decoration: none;
     color: white;
     background-color: #8b764c;
-    box-shadow: 0px 10px 15px #8b764c;
     color: #fff;
 }
 
@@ -143,8 +147,6 @@ button {
     width: 150px;
 }
 
-button:hover {
-    background-color: #8b764c;
-    box-shadow: 0px 10px 15px #8b764c;
-    color: #fff;
+::placeholder {
+    color: grey;
 }
