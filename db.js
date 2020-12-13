@@ -21,7 +21,7 @@ module.exports.allSigners = () => {
         "FROM users " +
         "LEFT JOIN user_profiles " +
         "ON users.id = user_profiles.user_id " +
-        "INNER JOIN signatures " +
+        "LEFT JOIN signatures " +
         "ON user_profiles.user_id = signatures.user_id";
     return db.query(q);
 };
