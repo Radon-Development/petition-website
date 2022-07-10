@@ -1,7 +1,7 @@
 const spicedPg = require("spiced-pg");
 const db = spicedPg(
     process.env.DATABASE_URL ||
-        "postgres:postgres:postgres@localhost:5432/petition"
+        "postgres://xuonrajf:ywxQiuBHt5sNFWMOCd5HtlVChJXJEHql@heffalump.db.elephantsql.com/xuonrajf"
 );
 
 module.exports.addSignature = (sig, userId) => {
