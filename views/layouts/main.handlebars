@@ -13,23 +13,66 @@
 </head>
 
 <body>
-    {{#if isAuthenticated}}
+    
     <div class="hi">
         <p>Hi {{name}}👋 Hope you're doing great today :)</p>
     </div>
     <nav>
-        <a href="/about">About</a><p> |</p>
-        <a href="/thanks">Thank You!</a><p> |</p>
-        <a href="/signers">See All Signers</a><p> |</p>
-        <a href="/profile/edit">Profile</a><p> |</p>
-        <a href="/logout">Log Out</a>
+
+        
+       
+     
     </nav>
-    {{else}}
+
     <nav>
         <a href="/about">About</a><p> |</p>
         <a href="/register">Register </a><p> |</p>
         <a href="/login">Log In</a>
     </nav>
+    
+    {{#if isAuthenticated}}
+    <div class="container">
+     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+         <p>Radon Dev</p>
+      </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
+        <a href="/about">About</a><p> |</p>
+       <a href="/thanks">Thank You!</a><p> |</p>
+         <a href="/signers">See All Signers</a><p> |</p>
+      </ul>
+
+      <div class="col-md-3 text-end">
+        <button type="button" class="btn btn-outline-primary me-2"><a href="/profile/edit">Profile</a><p> |</p></button>
+        <button type="button" class="btn btn-primary"><a href="/logout">Log Out</a></button>
+           
+        
+      </div>
+     </header>
+     </div>
+     {{else}}
+     <div class="container">
+     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+      <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+       <p>Radon Dev</p>
+      </a>
+
+      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
+        <a href="/about">About</a><p> |</p>
+         <a href="/signers">See All Signers</a><p> |</p>
+      </ul>
+
+      <div class="col-md-3 text-end">
+        <button type="button" class="btn btn-outline-primary me-2"><a href="/profile/edit">Profile</a><p> |</p></button>
+        <button type="button" class="btn btn-primary"><a href="/logout">Log Out</a></button>
+           
+        
+      </div>
+     </header>
+     </div>
     {{/if}}
     {{{body}}}
 </body>
