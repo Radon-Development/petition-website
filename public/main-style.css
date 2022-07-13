@@ -1,17 +1,34 @@
+/* added fonts from googlefonts */
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700;900&display=swap");
+
 * {
-    border: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
 }
 
-body {
-    background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)),
-        url(../hummus-bg.jpg);
-    background-size: cover;
+html {
+  background-image: url(../bg.jpg);
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  font-family: "Merriweather", serif;
 }
-
-h1 {
-    font-family: "Raleway", sans-serif;
-    color: white;
+html:after {
+  content: "";
+  position: absolute;
+  background-color: black;
+  opacity: 0.93;
+  z-index: -1;
+  top: 0;
+  width: 100vw;
+  min-height: 100%;
+}
+body h1,
+body h2 {
+  color: white;
 }
 
 a,
@@ -21,66 +38,83 @@ li,
 button,
 input,
 label {
-    font-family: "Roboto", sans-serif;
-    color: white;
+  color: white;
 }
 
 li {
-    list-style: none;
-    margin-bottom: 2.25rem;
+  list-style: none;
+  margin-bottom: 2.25rem;
 }
 
 a {
-    text-decoration: underline;
-    justify-self: center;
-    color: white;
+  text-decoration: underline;
+  justify-self: center;
+  color: white;
 }
 
 a:hover {
-    text-decoration: underline;
-    text-decoration-color: #94aa23;
-    color: #94aa23;
+  text-decoration: underline;
+  text-decoration-color: #94aa23;
+  color: #94aa23;
 }
 
-nav {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-    display: flex;
-    gap: 7px;
+.simpleNav {
+  display: flex;
+  gap: 7px;
+  justify-content: center;
+  margin-top: 65px;
+  margin-left: 30px;
+  font-size: 25px;
+  font-weight: 700;
 }
 
-nav > p {
-    display: contents;
+.authenticatedNav {
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  gap: 7px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 0 30px;
+  margin-top: 65px;
 }
 
-.hi > p {
-    display: contents;
-    position: absolute;
-    margin-left: 0;
-    color: white;
+.simpleNav > p {
+  display: contents;
 }
 
 .hi {
-    margin-top: 15px;
+  margin-top: 60px;
+}
+
+.hi > p {
+  text-align: center;
+  color: white;
+  margin: 0 25px;
 }
 
 input {
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
-    color: black;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.18);
+  color: black;
 }
 
 button {
-    cursor: pointer;
-    color: black;
-    display: block;
-    border-radius: 20px;
-    height: 30px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-    transition: all 0.3s ease 0s;
+  cursor: pointer;
+  color: black;
+  display: block;
+  border-radius: 20px;
+  height: 30px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease 0s;
 }
 
 button:hover {
-    background-color: #8b764c;
-    color: #fff;
+  background-color: #8b764c;
+  color: #fff;
+}
+
+@media (max-width: 370px) {
+  .simpleNav {
+    margin-left: 8px;
+  }
 }
