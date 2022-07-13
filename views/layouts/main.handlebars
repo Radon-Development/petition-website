@@ -1,38 +1,47 @@
-<!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../main-style.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../../main-style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Raleway:wght@900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
 
     <title>{{title}}</title>
-</head>
+  </head>
 
-<body>
+  <body>
     {{#if isAuthenticated}}
-    <div class="hi">
+      {{!-- <div class="hi">
         <p>Hi {{name}}👋 Hope you're doing great today :)</p>
-    </div>
-    <nav>
+      </div> --}}
+      {{! added link class, so that can be manipulated by js }}
+      <nav class="authenticatedNav">
         <a href="/about">About</a><p> |</p>
         <a href="/thanks">Thank You!</a><p> |</p>
         <a href="/signers">See All Signers</a><p> |</p>
         <a href="/profile/edit">Profile</a><p> |</p>
         <a href="/logout">Log Out</a>
-    </nav>
+      </nav>
+      <div class="hi">
+        <p>Hi {{name}}👋 Hope you're doing great today :)</p>
+      </div>
     {{else}}
-    <nav>
+      <nav class="simpleNav">
         <a href="/about">About</a><p> |</p>
         <a href="/register">Register </a><p> |</p>
         <a href="/login">Log In</a>
-    </nav>
+      </nav>
     {{/if}}
     {{{body}}}
-</body>
+  </body>
 
 </html>
 

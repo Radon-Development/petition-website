@@ -1,59 +1,97 @@
 .thanks {
-    text-align: center;
-    width: 32%;
-    height: 80%;
-    margin-left: 50%;
-    transform: translateX(-50%);
-    margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 45px;
+}
+
+.thanks > h1 {
+  font-weight: 900;
+  width: 50vw;
+  text-align: center;
+}
+
+.thanks > p {
+  font-size: 20px;
+  line-height: 1.3;
+  width: 45vw;
+  text-align: center;
+}
+.thanks :nth-child(2) {
+  margin-top: 25px;
+}
+.thanks :nth-child(4) {
+  margin-bottom: 20px;
+}
+
+strong {
+  font-family: "Merriweather", serif;
+  font-weight: 900;
+  font-size: 22px;
+  color: white;
+  margin: 10px 0;
 }
 
 .thanks > a {
-    text-decoration: none;
-    background-color: white;
-    cursor: pointer;
-    color: black;
-    display: block;
-    border-radius: 20px;
-    height: 30px;
-    width: 230px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-    transition: all 0.3s ease 0s;
-    align-self: center;
-    padding-top: 6px;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  text-decoration: none;
+  background-color: white;
+  cursor: pointer;
+  color: black;
+  display: block;
+  border-radius: 20px;
+  height: 30px;
+  width: 230px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease 0s;
+  align-self: center;
+  padding-top: 6px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  margin-bottom: 5px;
+  font-weight: 700;
 }
 
 .thanks > a:hover {
-    text-decoration: none;
-    color: white;
-    background-color: #8b764c;
-    color: #fff;
+  text-decoration: none;
+  color: white;
+  background-color: #8b764c;
+  color: #fff;
 }
 
 img,
 button {
-    display: block;
-    margin-bottom: 50px;
-    margin-left: auto;
-    margin-right: auto;
+  display: block;
+  margin-bottom: 50px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 img {
-    background-color: white;
-    border: 1px black dashed;
+  background-color: white;
+  border: 1px black dashed;
 }
 
 button {
-    width: 150px;
+  width: 170px;
+  font-weight: 400;
+  font-family: "Merriweather", serif;
+  padding: 8px 0;
 }
 
-.thanks > p {
-    font-size: 20px;
-    line-height: 1.3;
+@media (max-width: 380px) {
+  .thanks > p {
+    width: 60vw;
+  }
 }
-
-.thanks > a {
-    margin-bottom: 30px;
+@media (min-width: 380px) and (max-width: 450px) {
+  .thanks > p {
+    width: 50vw;
+  }
+}
+@media (max-width: 450px) {
+  .thanks > h1 {
+    width: 65vw;
+  }
 }

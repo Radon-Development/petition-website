@@ -1,41 +1,51 @@
 <div class="register">
 
-<h1>Join Us<br>
-Let's Save The Society!</h1>
+  <h1>Join Us </h1>
+  <h2>Let's Save The Society!</h2>
 
-    <form method='POST'>
+  <form method="POST">
 
-    <input type="hidden" name="_csrf" value="{{csrfToken}}">
+    <input type="hidden" name="_csrf" value="{{csrfToken}}" />
 
-    {{#if emailExists}}<p style="color: red; font-weight: bold">This email is already exists <br> Please use another email or log into your account</p>{{/if}}
+    {{! added text-align center to "p" tags }}
+    {{#if emailExists}}<p
+        style="color: red; font-weight: bold; text-align:center;"
+      >This email is already exists
+        <br />
+        Please use another email or log into your account</p>{{/if}}
 
     <div class="form">
 
-        {{#if missingFirst}}<p style="color: red; font-weight: bold">You must fill in a first-name</p>{{/if}}
-        <input id="firstI" type="text" name="first" placeholder="First Name">
+      {{#if missingFirst}}<p
+          style="color: red; font-weight: bold; text-align:center;"
+        >You must fill in a first-name</p>{{/if}}
+      <input id="firstI" type="text" name="first" placeholder="First Name" />
 
-        {{#if missingLast}}<p  style="color: red; font-weight: bold">You must fill in a last-name</p>{{/if}}
-        <input id="lastI" type="text" name="last" placeholder="Last Name">
+      {{#if missingLast}}<p
+          style="color: red; font-weight: bold; text-align:center;"
+        >You must fill in a last-name</p>{{/if}}
+      <input id="lastI" type="text" name="last" placeholder="Last Name" />
 
-        {{#if missingEmail}}<p style="color: red; font-weight: bold">You must fill in an email address</p>{{/if}}
-        <input id="emailI" type="text" name="email" placeholder="Email Address">
+      {{#if missingEmail}}<p
+          style="color: red; font-weight: bold; text-align:center;"
+        >You must fill in an email address</p>{{/if}}
+      <input id="emailI" type="text" name="email" placeholder="Email Address" />
 
-        {{#if missingPw}}<p style="color: red; font-weight: bold">You must fill in a password</p>{{/if}}
-        <input type="password" name="pw" placeholder="Password">
+      {{#if missingPw}}<p
+          style="color: red; font-weight: bold; text-align:center;"
+        >You must fill in a password</p>{{/if}}
+      <input type="password" name="pw" placeholder="Password" />
     </div>
 
     <button>Register</button>
 
-</form>
+  </form>
 
-<p>Already have an account? <a href="/login">Login</a></p>
+  <p>Already have an account? <a href="/login">Login</a></p>
 
 </div>
 
-
-
-
-<link rel="stylesheet" href="../register-style.css">
+<link rel="stylesheet" href="../register-style.css" />
 
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script src="../register-script.js"></script>

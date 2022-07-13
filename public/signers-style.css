@@ -1,20 +1,30 @@
 .signers {
-    text-align: center;
-    width: 32%;
-    height: 80%;
-    margin-left: 50%;
-    transform: translateX(-50%);
-    margin-top: 5%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+}
+
+h1 {
+  width: 60vw;
+  text-align: center;
 }
 
 li {
-    font-size: 20px;
+  font-size: 20px;
 }
 
 ul {
-    padding-left: 0;
+  padding-left: 0;
+  margin-top: 40px;
 }
 
 li > p {
-    display: contents;
+  display: contents;
+}
+
+@media (max-width: 400px) {
+  h1 {
+    width: 80vw;
+  }
 }

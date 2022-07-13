@@ -1,152 +1,164 @@
 .edit {
-    text-align: center;
-    width: 40%;
-    height: 50%;
-    margin-left: 50%;
-    transform: translateX(-50%);
-    margin-top: 1%;
-    color: white;
-    display: grid;
-    grid-template-columns: 50% 50%;
-    grid-template-rows: 1fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 1fr 0.75fr 0.75fr;
-    align-items: center;
-    justify-items: center;
+  text-align: center;
+  width: 60vw;
+  height: 50%;
+  margin-top: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  color: white;
+  display: grid;
+  grid-template-columns: 50% 50%;
+  grid-template-rows: 1fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr 1fr 0.75fr 0.75fr;
+  align-items: center;
+  justify-items: center;
 }
 
 input {
-    height: 20px;
-    height: 30px;
-    width: 200px;
-    text-indent: 10px;
+  height: 20px;
+  height: 30px;
+  width: 200px;
+  text-indent: 10px;
+  font-family: "Merriweather", serif;
 }
 
 button {
-    width: 90px;
+  width: 90px;
+  margin-top: 20px;
+  font-family: "Merriweather", serif;
 }
 
 .title {
-    grid-column: 1/3;
-    grid-row: 1/2;
+  grid-column: 1/3;
+  grid-row: 1/2;
 }
 
 .firstL {
-    grid-column: 1/2;
-    grid-row: 2/3;
-    width: 80%;
+  grid-column: 1/2;
+  grid-row: 2/3;
+  width: 80%;
 }
 
 .first {
-    grid-column: 1/2;
-    grid-row: 3/4;
-    width: 80%;
+  grid-column: 1/2;
+  grid-row: 3/4;
+  width: 80%;
 }
 
 .lastL {
-    grid-column: 2/3;
-    grid-row: 2/3;
-    width: 80%;
+  grid-column: 2/3;
+  grid-row: 2/3;
+  width: 80%;
 }
 
 .last {
-    grid-column: 2/3;
-    grid-row: 3/4;
-    width: 80%;
+  grid-column: 2/3;
+  grid-row: 3/4;
+  width: 80%;
 }
 
 .emailL {
-    grid-column: 1/2;
-    grid-row: 4/5;
-    width: 80%;
+  grid-column: 1/2;
+  grid-row: 4/5;
+  width: 80%;
 }
 
 .email {
-    grid-column: 1/2;
-    grid-row: 5/6;
-    width: 80%;
+  grid-column: 1/2;
+  grid-row: 5/6;
+  width: 80%;
 }
 
 .pwL {
-    grid-column: 2/3;
-    grid-row: 4/5;
-    width: 80%;
+  grid-column: 2/3;
+  grid-row: 4/5;
+  width: 80%;
 }
 
 .pw {
-    grid-column: 2/3;
-    grid-row: 5/6;
-    width: 80%;
+  grid-column: 2/3;
+  grid-row: 5/6;
+  width: 80%;
 }
 
 .ageL {
-    grid-column: 1/2;
-    grid-row: 6/7;
-    width: 80%;
+  grid-column: 1/2;
+  grid-row: 6/7;
+  width: 80%;
 }
 
 .age {
-    grid-column: 1/2;
-    grid-row: 7/8;
-    width: 80%;
+  grid-column: 1/2;
+  grid-row: 7/8;
+  width: 80%;
 }
 
 .cityL {
-    grid-column: 2/3;
-    grid-row: 6/7;
-    width: 80%;
+  grid-column: 2/3;
+  grid-row: 6/7;
+  width: 80%;
 }
 
 .city {
-    grid-column: 2/3;
-    grid-row: 7/8;
-    width: 80%;
+  grid-column: 2/3;
+  grid-row: 7/8;
+  width: 80%;
 }
 
 .url {
-    grid-column: 1/3;
-    grid-row: 8/9;
-    width: 80%;
+  grid-column: 1/3;
+  grid-row: 8/9;
+  width: 80%;
 }
 
 .update {
-    grid-column: 1/2;
-    grid-row: 9/10;
-    font-size: 16px;
-    padding-bottom: 5px;
-    align-self: center;
-    justify-self: center;
-    padding-top: 6px;
+  grid-column: 1/2;
+  grid-row: 9/10;
+  font-size: 16px;
+  padding-bottom: 5px;
+  align-self: center;
+  justify-self: center;
+  padding-top: 6px;
 }
 
 .cncl {
-    grid-column: 2/3;
-    grid-row: 9/10;
-    text-decoration: none;
-    background-color: white;
-    cursor: pointer;
-    color: black;
-    display: block;
-    border-radius: 20px;
-    height: 30px;
-    width: 90px;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
-    transition: all 0.3s ease 0s;
-    align-self: center;
-    padding-top: 6px;
+  grid-column: 2/3;
+  grid-row: 9/10;
+  text-decoration: none;
+  background-color: white;
+  cursor: pointer;
+  color: black;
+  display: block;
+  border-radius: 20px;
+  height: 30px;
+  width: 90px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease 0s;
+  align-self: center;
+  padding-top: 6px;
+  margin-top: 20px;
 }
 
 .cncl:hover {
-    text-decoration: none;
-    color: white;
-    background-color: #8b764c;
-    color: #fff;
+  text-decoration: none;
+  color: white;
+  background-color: #8b764c;
+  color: #fff;
 }
 
 .del {
-    grid-column: 1/3;
-    grid-row: 10/11;
-    width: 150px;
+  grid-column: 1/3;
+  grid-row: 10/11;
+  width: 150px;
+  padding-top: 2px;
+  font-family: "Merriweather", serif;
 }
 
 ::placeholder {
-    color: grey;
+  color: grey;
+}
+
+@media (max-width: 360px) {
+  .edit {
+    width: 85vw;
+  }
 }
